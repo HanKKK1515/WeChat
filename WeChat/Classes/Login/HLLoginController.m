@@ -52,12 +52,9 @@ static const CGFloat loginRightMarginPadH = 200;
                 self.leftConstraint.constant = loginLeftMarginPadH;
                 self.rightConstraint.constant = loginRightMarginPadH;
                 break;
-            case UIInterfaceOrientationPortrait:
-            case UIInterfaceOrientationPortraitUpsideDown:
+            default:
                 self.leftConstraint.constant = loginLeftMarginPadV;
                 self.rightConstraint.constant = loginRightMarginPadV;
-                break;
-            default:
                 break;
         }
     }
