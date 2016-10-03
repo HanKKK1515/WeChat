@@ -8,10 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, HLLoginResultType) {
+    HLLoginResultSuccess, // 登录成功
+    HLLoginResultFailure // 登录失败
+};
+
+typedef NS_ENUM(NSInteger, HLLogoutResultType) {
+    HLLogoutResultSuccess, // 注销成功
+    HLLogoutResultFailure // 注销失败
+};
+
+typedef void (^HLLoginResult)(HLLoginResultType result);
+typedef void (^HLLogoutResult)(HLLogoutResultType result);
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
+- (void)userLogin:(HLLoginResult)block;
+- (void)userLogout:(HLLogoutResult)block;
 
 @end
 

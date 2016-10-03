@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E439E8FA1DA289A800C6B458 /* NSString+md5.m in Sources */ = {isa = PBXBuildFile; fileRef = E439E8F81DA289A800C6B458 /* NSString+md5.m */; };
 		E454D4D71D9FD3BD00EA1B08 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E454D4D61D9FD3BD00EA1B08 /* main.m */; };
 		E454D4E21D9FD3BD00EA1B08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E454D4E11D9FD3BD00EA1B08 /* Assets.xcassets */; };
 		E454D4E51D9FD3BD00EA1B08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E454D4E31D9FD3BD00EA1B08 /* LaunchScreen.storyboard */; };
@@ -28,6 +29,8 @@
 /* Begin PBXFileReference section */
 		51452E684A0A08904AF7AE30 /* Pods-WeChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeChat/Pods-WeChat.debug.xcconfig"; sourceTree = "<group>"; };
 		DF685620BD241C2B25CAFE4D /* Pods_WeChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E439E8F81DA289A800C6B458 /* NSString+md5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+md5.m"; sourceTree = "<group>"; };
+		E439E8F91DA289A800C6B458 /* NSString+md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+md5.h"; sourceTree = "<group>"; };
 		E454D4D21D9FD3BD00EA1B08 /* WeChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E454D4D61D9FD3BD00EA1B08 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E454D4E11D9FD3BD00EA1B08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -142,6 +145,8 @@
 			isa = PBXGroup;
 			children = (
 				E4928C4F1DA1078200A6B345 /* CategoryWF.h */,
+				E439E8F91DA289A800C6B458 /* NSString+md5.h */,
+				E439E8F81DA289A800C6B458 /* NSString+md5.m */,
 				E4928C501DA1078200A6B345 /* UIButton+WF.h */,
 				E4928C511DA1078200A6B345 /* UIButton+WF.m */,
 				E4928C521DA1078200A6B345 /* UIImage+WF.h */,
@@ -172,10 +177,10 @@
 			isa = PBXGroup;
 			children = (
 				E4C045DB1DA0EF9E0013172D /* Login.storyboard */,
-				E4928C301DA0FB2300A6B345 /* HLOtherLoginController.h */,
-				E4928C311DA0FB2300A6B345 /* HLOtherLoginController.m */,
 				E4928C621DA1540E00A6B345 /* HLLoginController.h */,
 				E4928C631DA1540E00A6B345 /* HLLoginController.m */,
+				E4928C301DA0FB2300A6B345 /* HLOtherLoginController.h */,
+				E4928C311DA0FB2300A6B345 /* HLOtherLoginController.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -310,6 +315,7 @@
 				E4928C321DA0FB2300A6B345 /* HLOtherLoginController.m in Sources */,
 				E454D4D71D9FD3BD00EA1B08 /* main.m in Sources */,
 				E4928C5F1DA1078200A6B345 /* UIStoryboard+WF.m in Sources */,
+				E439E8FA1DA289A800C6B458 /* NSString+md5.m in Sources */,
 				E4928C391DA0FB6300A6B345 /* ViewController.m in Sources */,
 				E4928C381DA0FB6300A6B345 /* AppDelegate.m in Sources */,
 				E4928C641DA1540E00A6B345 /* HLLoginController.m in Sources */,

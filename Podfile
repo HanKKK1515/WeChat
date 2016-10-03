@@ -10,5 +10,7 @@ target 'WeChat' do
 use_frameworks!
 
 pod 'XMPPFramework', :git => "https://github.com/robbiehanson/XMPPFramework.git", :branch => 'master'
+pod 'SVProgressHUD', '~> 2.0.3'
+
 
 end

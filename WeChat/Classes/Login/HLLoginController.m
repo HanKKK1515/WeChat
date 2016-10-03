@@ -8,8 +8,11 @@
 
 #import "HLLoginController.h"
 #import "CategoryWF.h"
+#import "AppDelegate.h"
+#import "SVProgressHUD.h"
 
-@interface HLLoginController ()
+@interface HLLoginController () <UITextFieldDelegate>
+@property (weak, nonatomic) AppDelegate *app;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *userLabel;
@@ -34,7 +37,8 @@ static const CGFloat loginRightMarginPadH = 200;
     [self statusBarOrientationDidChange];
     // 设置输入框和按钮的背景图片。
     [self setupBackground];
-    
+    // 设置帐号显示
+    [self setupUser];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(statusBarOrientationDidChange) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
 }
 
@@ -66,13 +70,49 @@ static const CGFloat loginRightMarginPadH = 200;
     [self.loginBtn setStretchedN_BG:@"fts_green_btn" H_BG:@"fts_green_btn_HL"];
 }
 
+// 设置帐号显示
+- (void)setupUser {
+    self.userLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+    self.pwdField.delegate = self;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (IBAction)clickLogin {
+    [self.view endEditing:YES];
+    // 存储用户名和密码到沙盒。
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:self.userLabel.text forKey:@"userName"];
+    [defaults setObject:self.pwdField.text forKey:@"userPwd"];
+    [defaults synchronize];
     
+    [SVProgressHUD showWithStatus:@"正在登录。。。"];
+    [self.app userLogin:^(HLLoginResultType result) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            switch (result) {
+                case HLLoginResultFailure:
+                    [SVProgressHUD showErrorWithStatus:@"登录失败！"];
+                    break;
+                default:
+                    break;
+            }
+        });
+    }];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self clickLogin];
+    return YES;
+}
+
+- (AppDelegate *)app {
+    if (!_app) {
+        _app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    }
+    return _app;
 }
 
 @end

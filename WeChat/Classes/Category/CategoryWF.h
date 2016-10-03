@@ -14,5 +14,6 @@
 #import "UIStoryboard+WF.h"
 #import "UITextField+WF.h"
 #import "UIScreen+WF.h"
+#import "NSString+md5.h"
 
 #endif
