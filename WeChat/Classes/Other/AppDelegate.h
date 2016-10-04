@@ -10,12 +10,13 @@
 
 typedef NS_ENUM(NSInteger, HLLoginResultType) {
     HLLoginResultSuccess, // 登录成功
-    HLLoginResultFailure // 登录失败
+    HLLoginResultFailure, // 登录失败
+    HLLoginResultNetError // 网络连接失败
 };
 
 typedef NS_ENUM(NSInteger, HLLogoutResultType) {
     HLLogoutResultSuccess, // 注销成功
-    HLLogoutResultFailure // 注销失败
+    HLLogoutResultNetError // 网络连接失败
 };
 
 typedef void (^HLLoginResult)(HLLoginResultType result);

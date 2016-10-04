@@ -1,44 +1,40 @@
 //
-//  HLLoginController.m
+//  HLOtherLoginController.m
 //  WeChat
 //
 //  Created by 韩露露 on 16/10/2.
 //  Copyright © 2016年 HLL. All rights reserved.
 //
 
-#import "HLLoginController.h"
-#import "CategoryWF.h"
-#import "AppDelegate.h"
-#import "SVProgressHUD.h"
+#import "HLOtherLoginController.h"
 
-@interface HLLoginController () <UITextFieldDelegate>
+
+@interface HLOtherLoginController () <UITextFieldDelegate>
+
 @property (weak, nonatomic) AppDelegate *app;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightConstraint;
-@property (weak, nonatomic) IBOutlet UILabel *userLabel;
+@property (weak, nonatomic) IBOutlet UITextField *userField;
 @property (weak, nonatomic) IBOutlet UITextField *pwdField;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 
+- (IBAction)cancel:(UIBarButtonItem *)sender;
 - (IBAction)clickLogin;
+
 @end
 
-@implementation HLLoginController
+@implementation HLOtherLoginController
 
-static const CGFloat loginLeftMarginPhone = 20;
-static const CGFloat loginRightMarginPhone = 20;
-static const CGFloat loginLeftMarginPadV = 100;
-static const CGFloat loginRightMarginPadV = 100;
-static const CGFloat loginLeftMarginPadH = 200;
-static const CGFloat loginRightMarginPadH = 200;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     // 判断设备以及iPad横竖屏，调整登录框的大小。
     [self statusBarOrientationDidChange];
     // 设置输入框和按钮的背景图片。
     [self setupBackground];
-    // 设置帐号显示
-    [self setupUser];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(statusBarOrientationDidChange) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
 }
 
@@ -56,9 +52,12 @@ static const CGFloat loginRightMarginPadH = 200;
                 self.leftConstraint.constant = loginLeftMarginPadH;
                 self.rightConstraint.constant = loginRightMarginPadH;
                 break;
-            default:
+            case UIInterfaceOrientationPortrait:
+            case UIInterfaceOrientationPortraitUpsideDown:
                 self.leftConstraint.constant = loginLeftMarginPadV;
                 self.rightConstraint.constant = loginRightMarginPadV;
+                break;
+            default:
                 break;
         }
     }
@@ -66,46 +65,54 @@ static const CGFloat loginRightMarginPadH = 200;
 
 // 设置输入框和按钮的背景图片。
 - (void)setupBackground {
+    self.userField.background = [UIImage stretchedImageWithName:@"operationbox_text"];
     self.pwdField.background = [UIImage stretchedImageWithName:@"operationbox_text"];
     [self.loginBtn setStretchedN_BG:@"fts_green_btn" H_BG:@"fts_green_btn_HL"];
-}
-
-// 设置帐号显示
-- (void)setupUser {
-    self.userLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+    self.userField.delegate = self;
     self.pwdField.delegate = self;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+- (IBAction)cancel:(UIBarButtonItem *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)clickLogin {
-    [self.view endEditing:YES];
+    [self.view endEditing:NO];
     // 存储用户名和密码到沙盒。
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:self.userLabel.text forKey:@"userName"];
+    [defaults setObject:self.userField.text forKey:@"userName"];
     [defaults setObject:self.pwdField.text forKey:@"userPwd"];
     [defaults synchronize];
-    
+    // 登录
     [SVProgressHUD showWithStatus:@"正在登录。。。"];
     [self.app userLogin:^(HLLoginResultType result) {
         dispatch_async(dispatch_get_main_queue(), ^{
             switch (result) {
                 case HLLoginResultFailure:
-                    [SVProgressHUD showErrorWithStatus:@"登录失败！"];
+                    [SVProgressHUD showErrorWithStatus:@"登录失败，帐号或者密码错误。"];
                     break;
-                default:
+                case HLLoginResultSuccess: // 跳到主界面
+                    self.view.window.rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
                     break;
+                case HLLoginResultNetError:
+                    [SVProgressHUD showErrorWithStatus:@"网络连接失败"];
             }
         });
     }];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [self clickLogin];
+    if ([textField isEqual:self.userField]) {
+        [self.pwdField becomeFirstResponder];
+    } else if ([textField isEqual:self.pwdField]) {
+        [self clickLogin];
+    }
     return YES;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (AppDelegate *)app {

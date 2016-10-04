@@ -1,0 +1,41 @@
+//
+//  PrefixHeader.pch
+//  WeChat
+//
+//  Created by 韩露露 on 16/10/4.
+//  Copyright © 2016年 HLL. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import "CategoryWF.h"
+#import "AppDelegate.h"
+#import "SVProgressHUD.h"
+
+static const CGFloat loginLeftMarginPhone = 20;
+static const CGFloat loginRightMarginPhone = 20;
+static const CGFloat loginLeftMarginPadV = 100;
+static const CGFloat loginRightMarginPadV = 100;
+static const CGFloat loginLeftMarginPadH = 200;
+static const CGFloat loginRightMarginPadH = 200;
+
+#if TARGET_IPHONE_SIMULATOR//模拟器
+
+#ifdef DEBUG
+#define HLLog(...) NSLog(@"%s, %@", __func__, [NSString stringWithFormat:__VA_ARGS__])
+#else
+#define HLLog(...)
+#endif
+
+#elif TARGET_OS_IPHONE//真机
+
+#ifdef DEBUG
+#define HLLog(...) printf("%s, %s", __func__, [NSString stringWithFormat:__VA_ARGS__].UTF8String)
+#else
+#define HLLog(...)
+#endif
+
+#endif
+
+#endif /* PrefixHeader_pch */
