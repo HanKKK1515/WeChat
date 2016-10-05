@@ -9,7 +9,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="yyr-hv-AhQ">
             <objects>
-                <tabBarController id="EAZ-gP-dpK" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBar" id="EAZ-gP-dpK" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Ep5-Cj-JQN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -24,12 +24,12 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9B6-lU-FF0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1009" y="31"/>
+            <point key="canvasLocation" x="-347" y="6"/>
         </scene>
         <!--微信-->
         <scene sceneID="Gvs-ds-TpK">
             <objects>
-                <tableViewController id="NhD-Sh-PD6" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="mainVC" id="NhD-Sh-PD6" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="zaR-nS-nON">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -53,12 +53,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4mD-Ea-u6s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="977" y="-1039"/>
+            <point key="canvasLocation" x="630" y="-1249"/>
         </scene>
         <!--通讯录-->
         <scene sceneID="IDf-7Q-HEC">
             <objects>
-                <tableViewController id="1ne-3L-Wq2" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="contactsVC" id="1ne-3L-Wq2" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Qhh-Nu-bIz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -82,12 +82,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P6M-6C-ok1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="977" y="-376"/>
+            <point key="canvasLocation" x="630" y="-495"/>
         </scene>
         <!--发现-->
         <scene sceneID="vjU-hH-vB0">
             <objects>
-                <tableViewController id="l96-i8-NyN" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="discoverVC" id="l96-i8-NyN" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="TSw-0t-nyU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -111,12 +111,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MwZ-ys-u4n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="977" y="309"/>
+            <point key="canvasLocation" x="630" y="268"/>
         </scene>
         <!--我-->
         <scene sceneID="ajD-fY-cKz">
             <objects>
-                <tableViewController id="hCp-y5-3Sk" customClass="HLMeTableController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="meVC" id="hCp-y5-3Sk" customClass="HLMeTableController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="b22-0d-kvO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -148,12 +148,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3k0-cl-Z4w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="977" y="991"/>
+            <point key="canvasLocation" x="630" y="1017"/>
         </scene>
         <!--我-->
         <scene sceneID="KZS-VM-nFz">
             <objects>
-                <navigationController id="mg8-Yg-1DV" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="meNav" id="mg8-Yg-1DV" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="我" image="tabbar_meHL" selectedImage="tabbar_me" id="XPK-FF-9gN"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6b0-IT-QjK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -165,12 +165,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hgT-Cm-rvU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="169" y="991"/>
+            <point key="canvasLocation" x="169" y="1017"/>
         </scene>
         <!--发现-->
         <scene sceneID="Ulg-d4-ebL">
             <objects>
-                <navigationController id="YKs-iJ-398" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="discoverNav" id="YKs-iJ-398" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="发现" image="tabbar_discoverHL" selectedImage="tabbar_discover" id="oCq-Jm-eOd"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zbN-EK-dAP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -182,12 +182,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kMw-PR-292" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="169" y="309"/>
+            <point key="canvasLocation" x="169" y="268"/>
         </scene>
         <!--通讯录-->
         <scene sceneID="WV1-gN-gC1">
             <objects>
-                <navigationController id="2GQ-TI-s1a" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="contactsNav" id="2GQ-TI-s1a" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="通讯录" image="tabbar_contactsHL" selectedImage="tabbar_contacts" id="lj3-Ag-CUX"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="jJ4-Sa-fyc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -199,12 +199,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2K2-tr-gSG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="169" y="-376"/>
+            <point key="canvasLocation" x="169" y="-494"/>
         </scene>
         <!--微信-->
         <scene sceneID="Q5U-o5-mPS">
             <objects>
-                <navigationController id="Yjz-bq-oCH" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="mainNav" id="Yjz-bq-oCH" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="微信" image="tabbar_mainframeHL" selectedImage="tabbar_mainframe" id="tTH-Of-OLR"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="mT3-46-Fqg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -216,7 +216,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zlL-pJ-8DN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="169" y="-1039"/>
+            <point key="canvasLocation" x="169" y="-1248"/>
         </scene>
     </scenes>
     <resources>

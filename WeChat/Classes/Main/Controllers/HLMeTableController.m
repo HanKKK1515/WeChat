@@ -9,7 +9,6 @@
 #import "HLMeTableController.h"
 
 @interface HLMeTableController ()
-
 - (IBAction)logout:(UIBarButtonItem *)sender;
 @end
 
@@ -36,7 +35,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             switch (result) {
                 case HLLogoutResultSuccess: // 跳到登录界面
-                    self.view.window.rootViewController = [UIStoryboard storyboardWithName:@"Login" bundle:nil].instantiateInitialViewController;
+                    [self logoutSuccess];
                     break;
                 case HLLogoutResultNetError:
                     [SVProgressHUD showErrorWithStatus:@"网络连接不稳定"];
@@ -44,6 +43,17 @@
             }
         });
     }];
+}
+
+- (void)logoutSuccess {
+    self.view.window.rootViewController = [UIStoryboard storyboardWithName:@"Login" bundle:nil].instantiateInitialViewController;
+    HLUserInfo *userInfo = [HLUserInfo sharedHLUserInfo];
+    userInfo.pwd = @"";
+    [userInfo saveUserInfoData];
+}
+
+- (void)dealloc {
+    HLLog(@"HLMeTableController");
 }
 
 @end

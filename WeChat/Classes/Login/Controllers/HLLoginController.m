@@ -9,7 +9,6 @@
 #import "HLLoginController.h"
 
 @interface HLLoginController () <UITextFieldDelegate>
-@property (weak, nonatomic) AppDelegate *app;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *userLabel;
@@ -64,7 +63,7 @@
 
 // 设置帐号显示
 - (void)setupUser {
-    self.userLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+    self.userLabel.text = [HLUserInfo sharedHLUserInfo].userName;
     self.pwdField.delegate = self;
 }
 
@@ -75,21 +74,21 @@
 
 - (IBAction)clickLogin {
     [self.view endEditing:NO];
-    // 存储用户名和密码到沙盒。
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:self.userLabel.text forKey:@"userName"];
-    [defaults setObject:self.pwdField.text forKey:@"userPwd"];
-    [defaults synchronize];
+    
+    HLUserInfo *userInfo = [HLUserInfo sharedHLUserInfo];
+    userInfo.pwd = self.pwdField.text;
+    [userInfo saveUserInfoData];
     
     [SVProgressHUD showWithStatus:@"正在登录。。。"];
-    [self.app userLogin:^(HLLoginResultType result) {
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [app userLogin:^(HLLoginResultType result) {
         dispatch_async(dispatch_get_main_queue(), ^{
             switch (result) {
                 case HLLoginResultFailure:
-                    [SVProgressHUD showErrorWithStatus:@"登录失败，帐号或者密码错误。"];
+                    [self loginFailure];
                     break;
                 case HLLoginResultSuccess: // 跳到主界面
-                    self.view.window.rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
+                    [self loginSuccess];
                     break;
                 case HLLoginResultNetError:
                     [SVProgressHUD showErrorWithStatus:@"网络连接失败"];
@@ -99,16 +98,24 @@
     }];
 }
 
+- (void)loginFailure {
+    [SVProgressHUD showErrorWithStatus:@"登录失败，帐号或者密码错误。"];
+    HLUserInfo *userInfo = [HLUserInfo sharedHLUserInfo];
+    userInfo.pwd = @"";
+    [userInfo saveUserInfoData];
+}
+
+- (void)loginSuccess {
+    self.view.window.rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self clickLogin];
     return YES;
 }
 
-- (AppDelegate *)app {
-    if (!_app) {
-        _app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    }
-    return _app;
+- (void)dealloc {
+    HLLog(@"HLLoginController");
 }
 
 @end

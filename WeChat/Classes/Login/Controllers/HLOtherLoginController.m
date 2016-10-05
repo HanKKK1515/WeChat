@@ -11,12 +11,12 @@
 
 @interface HLOtherLoginController () <UITextFieldDelegate>
 
-@property (weak, nonatomic) AppDelegate *app;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightConstraint;
 @property (weak, nonatomic) IBOutlet UITextField *userField;
 @property (weak, nonatomic) IBOutlet UITextField *pwdField;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBtn;
 
 - (IBAction)cancel:(UIBarButtonItem *)sender;
 - (IBAction)clickLogin;
@@ -25,11 +25,17 @@
 
 @implementation HLOtherLoginController
 
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    HLUserInfo *userInfo = [HLUserInfo sharedHLUserInfo];
+    if (userInfo.userName.length == 0 && userInfo.pwd.length == 0) {
+        self.cancelBtn.enabled = NO;
+        self.cancelBtn.title = @"";
+    } else {
+        self.cancelBtn.enabled = YES;
+        self.cancelBtn.title = @"取消";
+    }
+    
     // 判断设备以及iPad横竖屏，调整登录框的大小。
     [self statusBarOrientationDidChange];
     // 设置输入框和按钮的背景图片。
@@ -78,27 +84,39 @@
 
 - (IBAction)clickLogin {
     [self.view endEditing:NO];
-    // 存储用户名和密码到沙盒。
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:self.userField.text forKey:@"userName"];
-    [defaults setObject:self.pwdField.text forKey:@"userPwd"];
-    [defaults synchronize];
-    // 登录
+    
+    HLUserInfo *userInfo = [HLUserInfo sharedHLUserInfo];
+    userInfo.userName = self.userField.text;
+    userInfo.pwd = self.pwdField.text;
+    [userInfo saveUserInfoData];
+    
     [SVProgressHUD showWithStatus:@"正在登录。。。"];
-    [self.app userLogin:^(HLLoginResultType result) {
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [app userLogin:^(HLLoginResultType result) {
         dispatch_async(dispatch_get_main_queue(), ^{
             switch (result) {
                 case HLLoginResultFailure:
-                    [SVProgressHUD showErrorWithStatus:@"登录失败，帐号或者密码错误。"];
+                    [self loginFailure];
                     break;
                 case HLLoginResultSuccess: // 跳到主界面
-                    self.view.window.rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
+                    [self loginSuccess];
                     break;
                 case HLLoginResultNetError:
                     [SVProgressHUD showErrorWithStatus:@"网络连接失败"];
             }
         });
     }];
+}
+
+- (void)loginFailure {
+    [SVProgressHUD showErrorWithStatus:@"登录失败，帐号或者密码错误。"];
+    HLUserInfo *userInfo = [HLUserInfo sharedHLUserInfo];
+    userInfo.pwd = @"";
+    [userInfo saveUserInfoData];
+}
+
+- (void)loginSuccess {
+    self.view.window.rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -115,11 +133,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (AppDelegate *)app {
-    if (!_app) {
-        _app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    }
-    return _app;
+- (void)dealloc {
+    HLLog(@"HLOtherLoginController");
 }
 
 @end

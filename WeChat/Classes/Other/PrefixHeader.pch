@@ -12,6 +12,7 @@
 #import "CategoryWF.h"
 #import "AppDelegate.h"
 #import "SVProgressHUD.h"
+#import "HLUserInfo.h"
 
 static const CGFloat loginLeftMarginPhone = 20;
 static const CGFloat loginRightMarginPhone = 20;

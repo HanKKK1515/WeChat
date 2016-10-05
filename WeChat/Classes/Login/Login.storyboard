@@ -11,7 +11,7 @@
         <!--登录Vc-->
         <scene sceneID="l93-QF-fHZ">
             <objects>
-                <viewController id="PPJ-cg-Ydj" userLabel="登录Vc" customClass="HLLoginController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginVC" id="PPJ-cg-Ydj" userLabel="登录Vc" customClass="HLLoginController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Han-pa-g7C"/>
                         <viewControllerLayoutGuide type="bottom" id="4gJ-uB-veX"/>
@@ -100,7 +100,7 @@
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.66242609799999996" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="uBb-0J-rUh" kind="presentation" id="aLN-Ut-9mC"/>
+                                    <segue destination="uBb-0J-rUh" kind="presentation" identifier="otherLogin" id="aLN-Ut-9mC"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -129,7 +129,7 @@
         <!--其他方式登录Vc-->
         <scene sceneID="Nci-mS-IPH">
             <objects>
-                <viewController id="aQo-ju-1Fc" userLabel="其他方式登录Vc" customClass="HLOtherLoginController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="otherLoginVC" id="aQo-ju-1Fc" userLabel="其他方式登录Vc" customClass="HLOtherLoginController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iOi-2u-eu0"/>
                         <viewControllerLayoutGuide type="bottom" id="SJk-OG-mfk"/>
@@ -147,12 +147,12 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="456123" borderStyle="roundedRect" placeholder="  请输入密码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="71I-9G-Ifo">
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CPS-ag-alh">
                                         <constraints>
@@ -197,6 +197,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="cancelBtn" destination="euR-wp-xRx" id="y9d-bN-xPe"/>
                         <outlet property="leftConstraint" destination="aVn-t8-rWN" id="ehn-1m-mEo"/>
                         <outlet property="loginBtn" destination="CPS-ag-alh" id="AGh-jR-K5y"/>
                         <outlet property="pwdField" destination="71I-9G-Ifo" id="0Ie-Dg-CEY"/>
@@ -211,7 +212,7 @@
         <!--登录Nvc-->
         <scene sceneID="XgE-Tj-sh6">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ptB-RB-pX6" userLabel="登录Nvc" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="loginNav" automaticallyAdjustsScrollViewInsets="NO" id="ptB-RB-pX6" userLabel="登录Nvc" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7GP-oi-MT4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -229,7 +230,7 @@
         <!--其他方式登录Nvc-->
         <scene sceneID="7zc-xa-ORv">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uBb-0J-rUh" userLabel="其他方式登录Nvc" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="otherLoginNav" automaticallyAdjustsScrollViewInsets="NO" id="uBb-0J-rUh" userLabel="其他方式登录Nvc" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="KFl-xL-DKA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
