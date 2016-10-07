@@ -10,11 +10,11 @@
 
 @implementation UIScreen (WF)
 
--(CGFloat)screenH{
+- (CGFloat)screenH {
     return [UIScreen mainScreen].bounds.size.height;
 }
 
--(CGFloat)screenW{
+- (CGFloat)screenW {
     return [UIScreen mainScreen].bounds.size.width;
 }
 

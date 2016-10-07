@@ -6,8 +6,8 @@
 //  Copyright © 2016年 HLL. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "HLBaseLoginController.h"
 
-@interface HLLoginController : UIViewController
+@interface HLLoginController : HLBaseLoginController
 
 @end

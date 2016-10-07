@@ -9,43 +9,56 @@
 #import "HLOtherLoginController.h"
 
 
-@interface HLOtherLoginController () <UITextFieldDelegate>
-
+@interface HLOtherLoginController ()
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightConstraint;
 @property (weak, nonatomic) IBOutlet UITextField *userField;
 @property (weak, nonatomic) IBOutlet UITextField *pwdField;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBtn;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *registerBtn;
 
 - (IBAction)cancel:(UIBarButtonItem *)sender;
+- (IBAction)clickRegister:(UIBarButtonItem *)sender;
 - (IBAction)clickLogin;
-
 @end
 
 @implementation HLOtherLoginController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    HLUserInfo *userInfo = [HLUserInfo sharedHLUserInfo];
-    if (userInfo.userName.length == 0 && userInfo.pwd.length == 0) {
-        self.cancelBtn.enabled = NO;
-        self.cancelBtn.title = @"";
-    } else {
-        self.cancelBtn.enabled = YES;
-        self.cancelBtn.title = @"取消";
-    }
-    
+    // 根据控制器的用途设置界面
+    [self setupVC];
     // 判断设备以及iPad横竖屏，调整登录框的大小。
-    [self statusBarOrientationDidChange];
+    [self setupLoginViewSize];
     // 设置输入框和按钮的背景图片。
     [self setupBackground];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(statusBarOrientationDidChange) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupLoginViewSize) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+}
+
+// 根据控制器的用途设置界面
+- (void)setupVC {
+    if (self.useType == HLUseRegister) {
+        self.cancelBtn.enabled = YES;
+        self.cancelBtn.title = @"取消";
+        self.registerBtn.title = @"登录";
+        [self.loginBtn setTitle:@"注册" forState:UIControlStateNormal];
+    } else if (self.useType == HLUseOtherLogin) {
+        self.cancelBtn.enabled = YES;
+        self.cancelBtn.title = @"取消";
+        self.registerBtn.title = @"注册";
+        [self.loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+    } else if (self.useType == HLUseFirstLogin) {
+        self.cancelBtn.enabled = NO;
+        self.cancelBtn.title = @"";
+        self.registerBtn.title = @"注册";
+        [self.loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+    }
 }
 
 // 判断设备以及iPad横竖屏，调整登录框的大小。
-- (void)statusBarOrientationDidChange {
+- (void)setupLoginViewSize {
     UIUserInterfaceIdiom userInterfaceIdiom = [UIDevice currentDevice].userInterfaceIdiom;
     if (userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         self.leftConstraint.constant = loginLeftMarginPhone;
@@ -58,21 +71,29 @@
                 self.leftConstraint.constant = loginLeftMarginPadH;
                 self.rightConstraint.constant = loginRightMarginPadH;
                 break;
-            case UIInterfaceOrientationPortrait:
-            case UIInterfaceOrientationPortraitUpsideDown:
+            default:
                 self.leftConstraint.constant = loginLeftMarginPadV;
                 self.rightConstraint.constant = loginRightMarginPadV;
-                break;
-            default:
                 break;
         }
     }
 }
 
+// 设置按钮状态
+- (void)textFieldDidChange {
+    self.loginBtn.enabled = self.pwdField.text.length > 0 && self.userField.text.length > 0;
+}
 // 设置输入框和按钮的背景图片。
 - (void)setupBackground {
     self.userField.background = [UIImage stretchedImageWithName:@"operationbox_text"];
     self.pwdField.background = [UIImage stretchedImageWithName:@"operationbox_text"];
+    UIView *leftUserView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, self.userField.h)];
+    UIView *LeftPwdView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, self.pwdField.h)];
+    self.userField.leftView = leftUserView;
+    self.pwdField.leftView = LeftPwdView;
+    self.userField.leftViewMode = UITextFieldViewModeAlways;
+    self.pwdField.leftViewMode = UITextFieldViewModeAlways;
+    
     [self.loginBtn setStretchedN_BG:@"fts_green_btn" H_BG:@"fts_green_btn_HL"];
     self.userField.delegate = self;
     self.pwdField.delegate = self;
@@ -82,41 +103,35 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)clickRegister:(UIBarButtonItem *)sender {
+    BOOL isRegister = [sender.title isEqualToString:@"注册"];
+    sender.title = isRegister ? @"登录" : @"注册";
+    [self.loginBtn setTitle:isRegister ? @"注册" : @"登录" forState:UIControlStateNormal];
+    if (isRegister) {
+        self.useType = HLUseRegister;
+    } else {
+        self.useType = HLUseOtherLogin;
+    }
+}
+
 - (IBAction)clickLogin {
     [self.view endEditing:NO];
+    if (![self.userField isTelphoneNum]) {
+        [SVProgressHUD showErrorWithStatus:@"请输入正确的手机号码！"];
+        return;
+    }
     
     HLUserInfo *userInfo = [HLUserInfo sharedHLUserInfo];
+    userInfo.previousUserName = userInfo.userName;
     userInfo.userName = self.userField.text;
-    userInfo.pwd = self.pwdField.text;
+    userInfo.pwd = [self.pwdField.text md5String];
     [userInfo saveUserInfoData];
     
-    [SVProgressHUD showWithStatus:@"正在登录。。。"];
-    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [app userLogin:^(HLLoginResultType result) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            switch (result) {
-                case HLLoginResultFailure:
-                    [self loginFailure];
-                    break;
-                case HLLoginResultSuccess: // 跳到主界面
-                    [self loginSuccess];
-                    break;
-                case HLLoginResultNetError:
-                    [SVProgressHUD showErrorWithStatus:@"网络连接失败"];
-            }
-        });
-    }];
-}
-
-- (void)loginFailure {
-    [SVProgressHUD showErrorWithStatus:@"登录失败，帐号或者密码错误。"];
-    HLUserInfo *userInfo = [HLUserInfo sharedHLUserInfo];
-    userInfo.pwd = @"";
-    [userInfo saveUserInfoData];
-}
-
-- (void)loginSuccess {
-    self.view.window.rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
+    if (self.useType == HLUseFirstLogin || self.useType == HLUseOtherLogin) {
+        [super userLogin];
+    } else {
+        [super userRegister];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -131,6 +146,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)setUseType:(HLUseType)useType {
+    _useType = useType;
 }
 
 - (void)dealloc {

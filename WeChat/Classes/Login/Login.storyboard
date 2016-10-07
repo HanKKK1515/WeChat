@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ptB-RB-pX6">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ptB-RB-pX6">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -35,7 +35,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="  请输入密码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="89J-83-Fbi">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  请输入密码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="89J-83-Fbi">
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="jjY-qX-sNk"/>
                                         </constraints>
@@ -43,7 +43,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HZN-wR-w1J">
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HZN-wR-w1J">
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="pRv-EC-XfW"/>
                                         </constraints>
@@ -65,6 +65,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <state key="normal" title="注册"/>
+                                        <connections>
+                                            <action selector="registe" destination="PPJ-cg-Ydj" eventType="touchUpInside" id="Xoi-Q9-jnz"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -100,7 +103,7 @@
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.66242609799999996" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="uBb-0J-rUh" kind="presentation" identifier="otherLogin" id="aLN-Ut-9mC"/>
+                                    <action selector="otherLogin" destination="PPJ-cg-Ydj" eventType="touchUpInside" id="ZWc-Vk-oVZ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -120,6 +123,7 @@
                         <outlet property="pwdField" destination="89J-83-Fbi" id="EJI-4W-mFd"/>
                         <outlet property="rightConstraint" destination="MDu-B2-OoO" id="18N-Oy-L6K"/>
                         <outlet property="userLabel" destination="JoN-YX-Efj" id="oTn-Q1-J5b"/>
+                        <segue destination="uBb-0J-rUh" kind="presentation" identifier="loginSegue" id="z2d-Iy-Cia"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lcP-gu-g1n" sceneMemberID="firstResponder"/>
@@ -140,7 +144,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eQx-B9-E2H">
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="zhangsan" borderStyle="roundedRect" placeholder="  请输入帐号" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="7Is-V8-Awx">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  请输入帐号" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="7Is-V8-Awx">
                                         <rect key="contentStretch" x="0.5" y="1" width="1" height="1"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="jEX-Ud-Hpa"/>
@@ -149,12 +153,12 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="456123" borderStyle="roundedRect" placeholder="  请输入密码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="71I-9G-Ifo">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  请输入密码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="71I-9G-Ifo">
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CPS-ag-alh">
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CPS-ag-alh">
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="1dx-Bk-C8x"/>
                                         </constraints>
@@ -195,12 +199,18 @@
                                 <action selector="cancel:" destination="aQo-ju-1Fc" id="N7F-lZ-v08"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="注册" id="hlX-v7-amB">
+                            <connections>
+                                <action selector="clickRegister:" destination="aQo-ju-1Fc" id="MNJ-lX-VVW"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="cancelBtn" destination="euR-wp-xRx" id="y9d-bN-xPe"/>
                         <outlet property="leftConstraint" destination="aVn-t8-rWN" id="ehn-1m-mEo"/>
                         <outlet property="loginBtn" destination="CPS-ag-alh" id="AGh-jR-K5y"/>
                         <outlet property="pwdField" destination="71I-9G-Ifo" id="0Ie-Dg-CEY"/>
+                        <outlet property="registerBtn" destination="hlX-v7-amB" id="2TN-UI-QLm"/>
                         <outlet property="rightConstraint" destination="a6o-7y-zUg" id="mgo-0g-KVG"/>
                         <outlet property="userField" destination="7Is-V8-Awx" id="X4y-SV-Yay"/>
                     </connections>

@@ -6,8 +6,16 @@
 //  Copyright © 2016年 HLL. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "HLBaseLoginController.h"
 
-@interface HLOtherLoginController : UIViewController
+typedef NS_ENUM(NSUInteger, HLUseType) {
+    HLUseRegister = 1,
+    HLUseOtherLogin,
+    HLUseFirstLogin
+};
+
+@interface HLOtherLoginController : HLBaseLoginController
+
+@property (assign, nonatomic) HLUseType useType;
 
 @end

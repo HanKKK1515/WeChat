@@ -11,12 +11,12 @@
 
 @implementation UIButton (WF)
 
--(void)setStretchedN_BG:(NSString *)nbg H_BG:(NSString *)hbg {
+- (void)setStretchedN_BG:(NSString *)nbg H_BG:(NSString *)hbg {
     [self setBackgroundImage:[UIImage stretchedImageWithName:nbg] forState:UIControlStateNormal];
     [self setBackgroundImage:[UIImage stretchedImageWithName:hbg] forState:UIControlStateHighlighted];
 }
 
--(void)setN_BG:(NSString *)nbg H_BG:(NSString *)hbg{
+- (void)setN_BG:(NSString *)nbg H_BG:(NSString *)hbg {
     [self setBackgroundImage:[UIImage imageNamed:nbg] forState:UIControlStateNormal];
     [self setBackgroundImage:[UIImage imageNamed:hbg] forState:UIControlStateHighlighted];
 }

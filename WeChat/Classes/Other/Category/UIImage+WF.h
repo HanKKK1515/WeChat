@@ -13,5 +13,6 @@
 /**
  *返回中心拉伸的图片
  */
-+(UIImage *)stretchedImageWithName:(NSString *)name;
++ (UIImage *)stretchedImageWithName:(NSString *)name;
+
 @end

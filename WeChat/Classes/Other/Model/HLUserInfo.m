@@ -15,9 +15,11 @@ static HLUserInfo *_userInfo = nil;
 singleton_implementation(HLUserInfo);
 
 - (void)loadUserInfoData {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     HLUserInfo *userInfo = [HLUserInfo sharedHLUserInfo];
-    userInfo.userName = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
-    userInfo.pwd = [[NSUserDefaults standardUserDefaults] objectForKey:@"pwd"];
+    userInfo.userName = [defaults objectForKey:@"userName"];
+    userInfo.pwd = [defaults objectForKey:@"pwd"];
+    userInfo.previousUserName = [defaults objectForKey:@"previousUserName"];
 }
 
 - (void)saveUserInfoData {
@@ -25,6 +27,7 @@ singleton_implementation(HLUserInfo);
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:self.userName forKey:@"userName"];
         [defaults setObject:self.pwd forKey:@"pwd"];
+        [defaults setObject:self.previousUserName forKey:@"previousUserName"];
         [defaults synchronize];
     });
 }

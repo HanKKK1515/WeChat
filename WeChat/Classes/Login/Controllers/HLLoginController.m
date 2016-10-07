@@ -7,8 +7,10 @@
 //
 
 #import "HLLoginController.h"
+#import "HLOtherLoginController.h"
 
-@interface HLLoginController () <UITextFieldDelegate>
+
+@interface HLLoginController ()
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *userLabel;
@@ -16,25 +18,22 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 
 - (IBAction)clickLogin;
+- (IBAction)registe;
+- (IBAction)otherLogin;
 @end
 
 @implementation HLLoginController
 
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // 判断设备以及iPad横竖屏，调整登录框的大小。
-    [self statusBarOrientationDidChange];
-    // 设置输入框和按钮的背景图片。
-    [self setupBackground];
+    [self setupLoginViewSize];
     // 设置帐号显示
     [self setupUser];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(statusBarOrientationDidChange) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
 }
 
 // 判断设备以及iPad横竖屏，调整登录框的大小。
-- (void)statusBarOrientationDidChange {
+- (void)setupLoginViewSize {
     UIUserInterfaceIdiom userInterfaceIdiom = [UIDevice currentDevice].userInterfaceIdiom;
     if (userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         self.leftConstraint.constant = loginLeftMarginPhone;
@@ -55,9 +54,22 @@
     }
 }
 
+// 设置按钮状态
+- (void)textFieldDidChange {
+    self.loginBtn.enabled = self.pwdField.text.length > 0 && self.userLabel.text.length > 0;
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    // 设置输入框和按钮的背景图片。
+    [self setupBackground];
+}
+
 // 设置输入框和按钮的背景图片。
 - (void)setupBackground {
     self.pwdField.background = [UIImage stretchedImageWithName:@"operationbox_text"];
+    [self.pwdField addLeftViewWithImage:@"Card_Lock"];
+    
     [self.loginBtn setStretchedN_BG:@"fts_green_btn" H_BG:@"fts_green_btn_HL"];
 }
 
@@ -76,42 +88,36 @@
     [self.view endEditing:NO];
     
     HLUserInfo *userInfo = [HLUserInfo sharedHLUserInfo];
-    userInfo.pwd = self.pwdField.text;
+    userInfo.pwd = [self.pwdField.text md5String];
     [userInfo saveUserInfoData];
     
-    [SVProgressHUD showWithStatus:@"正在登录。。。"];
-    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [app userLogin:^(HLLoginResultType result) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            switch (result) {
-                case HLLoginResultFailure:
-                    [self loginFailure];
-                    break;
-                case HLLoginResultSuccess: // 跳到主界面
-                    [self loginSuccess];
-                    break;
-                case HLLoginResultNetError:
-                    [SVProgressHUD showErrorWithStatus:@"网络连接失败"];
-                    break;
-            }
-        });
-    }];
-}
-
-- (void)loginFailure {
-    [SVProgressHUD showErrorWithStatus:@"登录失败，帐号或者密码错误。"];
-    HLUserInfo *userInfo = [HLUserInfo sharedHLUserInfo];
-    userInfo.pwd = @"";
-    [userInfo saveUserInfoData];
-}
-
-- (void)loginSuccess {
-    self.view.window.rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
+    [super userLogin];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self clickLogin];
     return YES;
+}
+
+- (IBAction)registe {
+    [self performSegueWithIdentifier:@"loginSegue" sender:@"register"];
+}
+
+- (IBAction)otherLogin {
+    [self performSegueWithIdentifier:@"loginSegue" sender:@"otherLogin"];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    id dest = segue.destinationViewController;
+    if ([dest isKindOfClass:UINavigationController.class]) {
+        UINavigationController *destNav = dest;
+        HLOtherLoginController *destVc = destNav.viewControllers.lastObject;
+        if ([sender isEqualToString:@"register"]) {
+            destVc.useType = HLUseRegister;
+        } else if ([sender isEqualToString:@"otherLogin"]) {
+            destVc.useType = HLUseOtherLogin;
+        }
+    }
 }
 
 - (void)dealloc {

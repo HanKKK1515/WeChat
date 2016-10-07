@@ -7,18 +7,12 @@
 //
 
 #import "AppDelegate.h"
-#import <XMPPFramework/XMPPFramework.h>
+#import "HLOtherLoginController.h"
 
-@interface AppDelegate () <XMPPStreamDelegate> {
-    HLLoginResult _loginBlock;
-    HLLogoutResult _logoutBlock;
-}
-
-@property (strong, nonatomic) XMPPStream *stream;
+@interface AppDelegate ()
 @end
 
 @implementation AppDelegate
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
@@ -28,12 +22,14 @@
     return YES;
 }
 
+// 设置提示框样式
 - (void)setupSVProgressHUD {
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     [SVProgressHUD setDefaultAnimationType:SVProgressHUDAnimationTypeNative];
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
 }
 
+// 设置导航栏样式
 - (void)setupNavigationBar {
     UINavigationBar *appearance = [UINavigationBar appearance];
     [appearance setBackgroundImage:[UIImage imageNamed:@"topbarbg_Nav"] forBarMetrics:UIBarMetricsDefault];
@@ -50,12 +46,13 @@
     [item setTitleTextAttributes:fontAttribItem forState:UIControlStateHighlighted];
 }
 
+// 程序启动后选择首页面
 - (void)setupFirstPage {
     HLUserInfo *userInfo = [HLUserInfo sharedHLUserInfo];
     [userInfo loadUserInfoData];
     if (userInfo.userName.length > 0 && userInfo.pwd.length > 0) {
         __weak typeof(self) selfWeak = self;
-        [self userLogin:^(HLLoginResultType result) {
+        [[HLXMPPTool sharedHLXMPPTool] userLogin:^(HLLoginResultType result) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 switch (result) {
                     case HLLoginResultFailure:
@@ -76,80 +73,11 @@
         self.window.rootViewController = [UIStoryboard storyboardWithName:@"Login" bundle:nil].instantiateInitialViewController;
     } else {
         UIStoryboard *storybaord = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
-        self.window.rootViewController = [storybaord instantiateViewControllerWithIdentifier:@"otherLoginNav"];
+        UINavigationController *otherLoginNav = [storybaord instantiateViewControllerWithIdentifier:@"otherLoginNav"];
+        HLOtherLoginController *otherLoginVc = otherLoginNav.viewControllers.lastObject;
+        otherLoginVc.useType = HLUseFirstLogin;
+        self.window.rootViewController = otherLoginNav;
     }
-}
-
-- (void)userLogin:(HLLoginResult)block {
-    [self.stream disconnect];
-    _loginBlock = block;
-    // 从沙盒中获取用户名和密码。
-    NSString *userName = [HLUserInfo sharedHLUserInfo].userName;
-    self.stream.myJID = [XMPPJID jidWithUser:userName domain:@"hllmac.local" resource:@"iphone"];
-    // 连接至服务器。
-    NSError *error = nil;
-    if (![self.stream connectWithTimeout:XMPPStreamTimeoutNone error:&error]) {
-        HLLog(@"连接服务器出错：%@", error.localizedDescription);
-    }
-}
-
-#pragma mark - XMPPStreamDelegate
-
-- (void)xmppStreamDidConnect:(XMPPStream *)sender {
-    HLLog(@"连接服务器成功\n");
-    // 发送密码
-    NSString *userPwd = [HLUserInfo sharedHLUserInfo].pwd;
-    NSError *error = nil;
-    if (![self.stream authenticateWithPassword:userPwd error:&error]) {
-        HLLog(@"登录失败\n");
-    }
-}
-
-- (void)xmppStreamDidAuthenticate:(XMPPStream *)sender {
-    HLLog(@"密码验证成功\n");
-    if (_loginBlock) {
-        _loginBlock(HLLoginResultSuccess);
-    }
-    // 发送在线状态
-    XMPPPresence *presence = [XMPPPresence presence];
-    [self.stream sendElement:presence];
-}
-
-- (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(DDXMLElement *)error {
-    HLLog(@"密码验证失败\n");
-    if (_loginBlock) {
-        _loginBlock(HLLoginResultFailure);
-    }
-}
-
-- (void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error {
-    HLLog(@"已断开服务器\n");
-    if (error) {
-        if (_loginBlock) _loginBlock(HLLoginResultNetError);
-        if (_logoutBlock) _logoutBlock(HLLogoutResultNetError);
-    }
-}
-
-- (void)userLogout:(HLLogoutResult)block {
-    _logoutBlock = block;
-    if ([self.stream isDisconnected]) {
-        if (_logoutBlock) _logoutBlock(HLLogoutResultNetError);
-    } else {
-        // 发送离线状态
-        XMPPPresence *presence = [XMPPPresence presenceWithType:@"unavailable"];
-        [self.stream sendElement:presence];
-        // 与服务器断开连接
-        [self.stream disconnect];
-        if (_logoutBlock) return _logoutBlock(HLLogoutResultSuccess);
-    }
-}
-
-- (XMPPStream *)stream {
-    if (!_stream) {
-        _stream = [[XMPPStream alloc] init];
-        [_stream addDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
-    }
-    return _stream;
 }
 
 @end

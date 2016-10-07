@@ -30,12 +30,12 @@
 }
 
 - (IBAction)logout:(UIBarButtonItem *)sender {
-    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [app userLogout:^(HLLogoutResultType result) {
+    __weak typeof(self) selfWeak = self;
+    [[HLXMPPTool sharedHLXMPPTool] userLogout:^(HLLogoutResultType result) {
         dispatch_async(dispatch_get_main_queue(), ^{
             switch (result) {
                 case HLLogoutResultSuccess: // 跳到登录界面
-                    [self logoutSuccess];
+                    [selfWeak logoutSuccess];
                     break;
                 case HLLogoutResultNetError:
                     [SVProgressHUD showErrorWithStatus:@"网络连接不稳定"];

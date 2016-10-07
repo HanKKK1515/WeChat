@@ -10,7 +10,7 @@
 
 @interface UIScreen (WF)
 
-@property(nonatomic,assign,readonly)CGFloat screenH;
-@property(nonatomic,assign,readonly)CGFloat screenW;
+@property (nonatomic, assign, readonly) CGFloat screenH;
+@property (nonatomic, assign, readonly) CGFloat screenW;
 
 @end

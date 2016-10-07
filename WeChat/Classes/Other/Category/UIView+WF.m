@@ -10,35 +10,35 @@
 
 @implementation UIView (WF)
 
--(void)setH:(float)h{
+- (void)setH:(float)h {
     CGRect frm = self.frame;
     frm.size.height = h;
     self.frame = frm;
 }
 
--(float)h{
+- (float)h {
     return self.frame.size.height;
 }
 
--(void)setW:(float)w{
+- (void)setW:(float)w {
     CGRect frm = self.frame;
     frm.size.width = w;
     self.frame = frm;
 }
 
--(float)w{
+- (float)w {
     return self.frame.size.width;
 }
 
--(void)setY:(float)y{
+- (void)setY:(float)y {
     CGRect frm = self.frame;
     frm.origin.y = y;
     self.frame = frm;
-
 }
 
 
--(float)y{
+- (float)y {
     return self.frame.origin.y;
 }
+
 @end

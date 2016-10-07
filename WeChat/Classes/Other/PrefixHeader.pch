@@ -10,9 +10,9 @@
 #define PrefixHeader_pch
 
 #import "CategoryWF.h"
-#import "AppDelegate.h"
 #import "SVProgressHUD.h"
 #import "HLUserInfo.h"
+#import "HLXMPPTool.h"
 
 static const CGFloat loginLeftMarginPhone = 20;
 static const CGFloat loginRightMarginPhone = 20;
