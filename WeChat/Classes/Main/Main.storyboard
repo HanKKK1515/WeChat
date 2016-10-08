@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="EAZ-gP-dpK">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="EAZ-gP-dpK">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -24,7 +24,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9B6-lU-FF0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3481" y="25"/>
+            <point key="canvasLocation" x="-2703" y="12"/>
         </scene>
         <!--微信-->
         <scene sceneID="Gvs-ds-TpK">
@@ -39,7 +39,7 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tuC-CS-r0d" id="NZq-XJ-Sdx">
-                                    <frame key="frameInset" width="375" height="43"/>
+                                    <frame key="frameInset" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -68,7 +68,7 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dnh-Ia-Wbg" id="W8f-US-IhT">
-                                    <frame key="frameInset" width="375" height="43"/>
+                                    <frame key="frameInset" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -97,7 +97,7 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QAe-WS-2vc" id="PhW-zB-cIz">
-                                    <frame key="frameInset" width="375" height="43"/>
+                                    <frame key="frameInset" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -126,7 +126,7 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dsr-bH-oO0" id="Owq-ya-LBu">
-                                    <frame key="frameInset" width="375" height="43"/>
+                                    <frame key="frameInset" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -154,7 +154,7 @@
         <scene sceneID="KZS-VM-nFz">
             <objects>
                 <navigationController storyboardIdentifier="meNav" id="mg8-Yg-1DV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我" image="tabbar_meHL" selectedImage="tabbar_me" id="XPK-FF-9gN"/>
+                    <tabBarItem key="tabBarItem" title="我" image="tabbar_me" selectedImage="tabbar_meHL" id="XPK-FF-9gN"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6b0-IT-QjK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -171,7 +171,7 @@
         <scene sceneID="Ulg-d4-ebL">
             <objects>
                 <navigationController storyboardIdentifier="discoverNav" id="YKs-iJ-398" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="发现" image="tabbar_discoverHL" selectedImage="tabbar_discover" id="oCq-Jm-eOd"/>
+                    <tabBarItem key="tabBarItem" title="发现" image="tabbar_discover" selectedImage="tabbar_discoverHL" id="oCq-Jm-eOd"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zbN-EK-dAP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -188,7 +188,7 @@
         <scene sceneID="WV1-gN-gC1">
             <objects>
                 <navigationController storyboardIdentifier="contactsNav" id="2GQ-TI-s1a" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="通讯录" image="tabbar_contactsHL" selectedImage="tabbar_contacts" id="lj3-Ag-CUX"/>
+                    <tabBarItem key="tabBarItem" title="通讯录" image="tabbar_contacts" selectedImage="tabbar_contactsHL" id="lj3-Ag-CUX"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="jJ4-Sa-fyc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -205,7 +205,7 @@
         <scene sceneID="Q5U-o5-mPS">
             <objects>
                 <navigationController storyboardIdentifier="mainNav" id="Yjz-bq-oCH" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="微信" image="tabbar_mainframeHL" selectedImage="tabbar_mainframe" id="tTH-Of-OLR"/>
+                    <tabBarItem key="tabBarItem" title="微信" image="tabbar_mainframe" selectedImage="tabbar_mainframeHL" id="tTH-Of-OLR"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="mT3-46-Fqg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

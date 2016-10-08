@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "HLOtherLoginController.h"
 
+#define HLTabBarItemColor(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
+
 @interface AppDelegate ()
 @end
 
@@ -18,6 +20,7 @@
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [self setupSVProgressHUD];
     [self setupNavigationBar];
+    [self setupTabBar];
     [self setupFirstPage];
     return YES;
 }
@@ -35,15 +38,27 @@
     [appearance setBackgroundImage:[UIImage imageNamed:@"topbarbg_Nav"] forBarMetrics:UIBarMetricsDefault];
     NSMutableDictionary *fontAttribNav = [NSMutableDictionary dictionary];
     fontAttribNav[NSForegroundColorAttributeName] = [UIColor whiteColor];
-    fontAttribNav[NSFontAttributeName] = [UIFont systemFontOfSize:18];
+    fontAttribNav[NSFontAttributeName] = [UIFont boldSystemFontOfSize:18];
     appearance.titleTextAttributes = fontAttribNav;
     
     UIBarButtonItem *item = [UIBarButtonItem appearance];
     NSMutableDictionary *fontAttribItem = [NSMutableDictionary dictionary];
     fontAttribItem[NSForegroundColorAttributeName] = [UIColor whiteColor];
-    fontAttribItem[NSFontAttributeName] = [UIFont systemFontOfSize:16];
+    fontAttribItem[NSFontAttributeName] = [UIFont boldSystemFontOfSize:16];
     [item setTitleTextAttributes:fontAttribItem forState:UIControlStateNormal];
     [item setTitleTextAttributes:fontAttribItem forState:UIControlStateHighlighted];
+}
+
+// 设置标签栏样式
+- (void)setupTabBar {
+    UITabBar *tabBar = [UITabBar appearance];
+    tabBar.backgroundImage = [UIImage imageNamed:@"tabbar_background"];
+    tabBar.tintColor = HLTabBarItemColor(61, 187, 3, 1);
+    
+    UITabBarItem *item = [UITabBarItem appearance];
+    NSMutableDictionary *fontAttribItem = [NSMutableDictionary dictionary];
+    fontAttribItem[NSFontAttributeName] = [UIFont boldSystemFontOfSize:12];
+    [item setTitleTextAttributes:fontAttribItem forState:UIControlStateNormal];
 }
 
 // 程序启动后选择首页面

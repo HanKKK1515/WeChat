@@ -87,8 +87,8 @@
 - (void)setupBackground {
     self.userField.background = [UIImage stretchedImageWithName:@"operationbox_text"];
     self.pwdField.background = [UIImage stretchedImageWithName:@"operationbox_text"];
-    UIView *leftUserView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, self.userField.h)];
-    UIView *LeftPwdView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, self.pwdField.h)];
+    UIView *leftUserView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, self.userField.h)];
+    UIView *LeftPwdView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, self.pwdField.h)];
     self.userField.leftView = leftUserView;
     self.pwdField.leftView = LeftPwdView;
     self.userField.leftViewMode = UITextFieldViewModeAlways;

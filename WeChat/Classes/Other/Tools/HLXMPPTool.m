@@ -8,6 +8,9 @@
 
 #import "HLXMPPTool.h"
 #import <XMPPFramework/XMPPFramework.h>
+#import "XMPPvCardCoreDataStorage.h" // 本地CoreData名片信息的存储
+#import "XMPPvCardTempModule.h" // 电子名片的获取和读取
+
 
 @interface HLXMPPTool () <XMPPStreamDelegate> {
     HLLoginResult _loginBlock;
@@ -16,6 +19,9 @@
 }
 
 @property (strong, nonatomic) XMPPStream *stream;
+@property (strong, nonatomic) XMPPvCardAvatarModule *vCarAvatar;
+@property (strong, nonatomic) XMPPvCardTempModule *vCarTemp;
+@property (strong, nonatomic) XMPPvCardCoreDataStorage *vCarStorage;
 
 @end
 
@@ -123,8 +129,34 @@ singleton_implementation(HLXMPPTool);
         _stream.hostName = @"hllmac.local";
         _stream.hostPort = 5222;
         [_stream addDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+        
+        [self vCarTemp];
+        [self vCarAvatar];
     }
     return _stream;
+}
+
+- (XMPPvCardCoreDataStorage *)vCarStorage {
+    if (!_vCarStorage) {
+        _vCarStorage = [XMPPvCardCoreDataStorage sharedInstance];
+    }
+    return _vCarStorage;
+}
+
+- (XMPPvCardTempModule *)vCarTemp {
+    if (!_vCarTemp) {
+        _vCarTemp = [[XMPPvCardTempModule alloc] initWithvCardStorage:self.vCarStorage];
+        [_vCarTemp activate:self.stream];
+    }
+    return _vCarTemp;
+}
+
+- (XMPPvCardAvatarModule *)vCarAvatar {
+    if (!_vCarAvatar) {
+        _vCarAvatar = [[XMPPvCardAvatarModule alloc] initWithvCardTempModule:self.vCarTemp];
+        [_vCarAvatar activate:self.stream];
+    }
+    return _vCarAvatar;
 }
 
 @end
