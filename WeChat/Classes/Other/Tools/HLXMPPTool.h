@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "Singleton.h"
+#import "XMPPvCardTemp.h"
+#import "XMPPvCardTempModule.h" // 电子名片的获取和读取
 
 typedef NS_ENUM(NSInteger, HLLoginResultType) {
     HLLoginResultSuccess, // 登录成功
@@ -33,6 +35,8 @@ typedef void (^HLRegisterResult)(HLRegisterResultType result);
 @interface HLXMPPTool : NSObject
 
 singleton_interface(HLXMPPTool);
+
+@property (strong, nonatomic) XMPPvCardTempModule *vCarTemp; // 名片模块
 
 - (void)userLogin:(HLLoginResult)block;
 - (void)userLogout:(HLLogoutResult)block;

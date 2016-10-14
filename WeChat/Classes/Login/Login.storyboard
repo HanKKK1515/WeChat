@@ -47,7 +47,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="pRv-EC-XfW"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="登录">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -122,6 +122,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="登录" id="tKC-5e-2Ab"/>
                     <connections>
+                        <outlet property="icon" destination="xnR-MZ-cj6" id="2ti-vb-Kkb"/>
                         <outlet property="leftConstraint" destination="dWN-4G-4EQ" id="TTa-BR-hCq"/>
                         <outlet property="loginBtn" destination="HZN-wR-w1J" id="oF0-JE-cd3"/>
                         <outlet property="pwdField" destination="89J-83-Fbi" id="EJI-4W-mFd"/>
@@ -154,12 +155,12 @@
                                             <constraint firstAttribute="height" constant="30" id="jEX-Ud-Hpa"/>
                                         </constraints>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" 请输入密码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="71I-9G-Ifo">
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CPS-ag-alh">

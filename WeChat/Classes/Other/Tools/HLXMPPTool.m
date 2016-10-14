@@ -9,7 +9,6 @@
 #import "HLXMPPTool.h"
 #import <XMPPFramework/XMPPFramework.h>
 #import "XMPPvCardCoreDataStorage.h" // 本地CoreData名片信息的存储
-#import "XMPPvCardTempModule.h" // 电子名片的获取和读取
 
 
 @interface HLXMPPTool () <XMPPStreamDelegate> {
@@ -19,9 +18,8 @@
 }
 
 @property (strong, nonatomic) XMPPStream *stream;
-@property (strong, nonatomic) XMPPvCardAvatarModule *vCarAvatar;
-@property (strong, nonatomic) XMPPvCardTempModule *vCarTemp;
-@property (strong, nonatomic) XMPPvCardCoreDataStorage *vCarStorage;
+@property (strong, nonatomic) XMPPvCardAvatarModule *vCarAvatar; // 头像模块
+@property (strong, nonatomic) XMPPvCardCoreDataStorage *vCarStorage; // 名片数据存储
 
 @end
 
@@ -130,8 +128,8 @@ singleton_implementation(HLXMPPTool);
         _stream.hostPort = 5222;
         [_stream addDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
         
-        [self vCarTemp];
-        [self vCarAvatar];
+        [self vCarTemp]; // 关联名片模块并激活
+        [self vCarAvatar]; // 关联头像模块并激活
     }
     return _stream;
 }

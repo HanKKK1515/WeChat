@@ -10,7 +10,9 @@
 #import "HLOtherLoginController.h"
 
 
+
 @interface HLLoginController ()
+@property (weak, nonatomic) IBOutlet UIImageView *icon;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *userLabel;
@@ -75,20 +77,19 @@
 
 // 设置帐号显示
 - (void)setupUser {
+    XMPPvCardTemp *vCardTemp = [HLXMPPTool sharedHLXMPPTool].vCarTemp.myvCardTemp;
+    if (vCardTemp.photo) {
+        self.icon.image = [UIImage imageWithData:vCardTemp.photo];
+    }
     self.userLabel.text = [HLUserInfo sharedHLUserInfo].userName;
     self.pwdField.delegate = self;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (IBAction)clickLogin {
     [self.view endEditing:NO];
     
     HLUserInfo *userInfo = [HLUserInfo sharedHLUserInfo];
-    userInfo.pwd = [self.pwdField.text md5String];
+    userInfo.pwd = self.pwdField.text; // [self.pwdField.text md5String];
     [userInfo saveUserInfoData];
     
     [super userLogin];

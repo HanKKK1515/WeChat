@@ -24,7 +24,7 @@ static const CGFloat loginRightMarginPadH = 200;
 #if TARGET_IPHONE_SIMULATOR//模拟器
 
 #ifdef DEBUG
-#define HLLog(...) NSLog(@"%s, %@", __func__, [NSString stringWithFormat:__VA_ARGS__])
+#define HLLog(...) NSLog(@"%s, %@\n", __func__, [NSString stringWithFormat:__VA_ARGS__])
 #else
 #define HLLog(...)
 #endif
@@ -32,7 +32,7 @@ static const CGFloat loginRightMarginPadH = 200;
 #elif TARGET_OS_IPHONE//真机
 
 #ifdef DEBUG
-#define HLLog(...) printf("%s, %s", __func__, [NSString stringWithFormat:__VA_ARGS__].UTF8String)
+#define HLLog(...) printf("%s, %s\n", __func__, [NSString stringWithFormat:__VA_ARGS__].UTF8String)
 #else
 #define HLLog(...)
 #endif

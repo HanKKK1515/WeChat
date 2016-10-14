@@ -34,7 +34,7 @@
     // 设置输入框和按钮的背景图片。
     [self setupBackground];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupLoginViewSize) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+    [self.userField becomeFirstResponder];
 }
 
 // 根据控制器的用途设置界面
@@ -124,7 +124,7 @@
     HLUserInfo *userInfo = [HLUserInfo sharedHLUserInfo];
     userInfo.previousUserName = userInfo.userName;
     userInfo.userName = self.userField.text;
-    userInfo.pwd = [self.pwdField.text md5String];
+    userInfo.pwd = self.pwdField.text; // [self.pwdField.text md5String];
     [userInfo saveUserInfoData];
     
     if (self.useType == HLUseFirstLogin || self.useType == HLUseOtherLogin) {
@@ -141,11 +141,6 @@
         [self clickLogin];
     }
     return YES;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setUseType:(HLUseType)useType {

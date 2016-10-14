@@ -9,6 +9,10 @@
 #import "HLMeTableController.h"
 
 @interface HLMeTableController ()
+@property (weak, nonatomic) IBOutlet UIImageView *icon;
+@property (weak, nonatomic) IBOutlet UILabel *nickName;
+@property (weak, nonatomic) IBOutlet UILabel *wexinName;
+
 - (IBAction)logout:(UIBarButtonItem *)sender;
 @end
 
@@ -16,17 +20,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    XMPPvCardTemp *myVCardTemp = [HLXMPPTool sharedHLXMPPTool].vCarTemp.myvCardTemp;
+    if (myVCardTemp.photo) {
+        self.icon.image = [UIImage imageWithData:myVCardTemp.photo];
+    }
+    self.nickName.text = myVCardTemp.nickname;
+    self.wexinName.text = [HLUserInfo sharedHLUserInfo].userName;
 }
 
 - (IBAction)logout:(UIBarButtonItem *)sender {

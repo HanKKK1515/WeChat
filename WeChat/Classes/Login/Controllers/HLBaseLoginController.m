@@ -85,6 +85,11 @@
     [userInfo saveUserInfoData];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)dealloc {
     HLLog(@"HLBaseLoginController");
 }

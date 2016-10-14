@@ -41,12 +41,13 @@
     fontAttribNav[NSFontAttributeName] = [UIFont boldSystemFontOfSize:18];
     appearance.titleTextAttributes = fontAttribNav;
     
+    appearance.tintColor = [UIColor whiteColor];
+    
     UIBarButtonItem *item = [UIBarButtonItem appearance];
     NSMutableDictionary *fontAttribItem = [NSMutableDictionary dictionary];
-    fontAttribItem[NSForegroundColorAttributeName] = [UIColor whiteColor];
     fontAttribItem[NSFontAttributeName] = [UIFont boldSystemFontOfSize:16];
-    [item setTitleTextAttributes:fontAttribItem forState:UIControlStateNormal];
-    [item setTitleTextAttributes:fontAttribItem forState:UIControlStateHighlighted];
+    fontAttribItem[NSForegroundColorAttributeName] = [UIColor whiteColor];
+    [item setTitleTextAttributes:fontAttribItem forState:UIControlStateDisabled];
 }
 
 // 设置标签栏样式
