@@ -61,8 +61,8 @@
     self.loginBtn.enabled = self.pwdField.text.length > 0 && self.userLabel.text.length > 0;
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     // 设置输入框和按钮的背景图片。
     [self setupBackground];
 }

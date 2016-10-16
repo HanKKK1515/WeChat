@@ -20,6 +20,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.sectionHeaderHeight = 5;
+    self.tableView.sectionFooterHeight = 5;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

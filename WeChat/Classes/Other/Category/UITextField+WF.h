@@ -20,4 +20,9 @@
  */
 - (BOOL)isTelphoneNum;
 
+/**
+ *  判断是否为邮箱
+ */
+- (BOOL)isMailbox;
+
 @end

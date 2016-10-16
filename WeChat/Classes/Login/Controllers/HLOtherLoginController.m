@@ -14,11 +14,11 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightConstraint;
 @property (weak, nonatomic) IBOutlet UITextField *userField;
 @property (weak, nonatomic) IBOutlet UITextField *pwdField;
+@property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBtn;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *registerBtn;
 
-- (IBAction)cancel:(UIBarButtonItem *)sender;
+- (IBAction)cancel;
 - (IBAction)clickRegister:(UIBarButtonItem *)sender;
 - (IBAction)clickLogin;
 @end
@@ -40,18 +40,15 @@
 // 根据控制器的用途设置界面
 - (void)setupVC {
     if (self.useType == HLUseRegister) {
-        self.cancelBtn.enabled = YES;
-        self.cancelBtn.title = @"取消";
+        self.cancelBtn.hidden = NO;
         self.registerBtn.title = @"登录";
         [self.loginBtn setTitle:@"注册" forState:UIControlStateNormal];
     } else if (self.useType == HLUseOtherLogin) {
-        self.cancelBtn.enabled = YES;
-        self.cancelBtn.title = @"取消";
+        self.cancelBtn.hidden = NO;
         self.registerBtn.title = @"注册";
         [self.loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     } else if (self.useType == HLUseFirstLogin) {
-        self.cancelBtn.enabled = NO;
-        self.cancelBtn.title = @"";
+        self.cancelBtn.hidden = YES;
         self.registerBtn.title = @"注册";
         [self.loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     }
@@ -99,7 +96,7 @@
     self.pwdField.delegate = self;
 }
 
-- (IBAction)cancel:(UIBarButtonItem *)sender {
+- (IBAction)cancel {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

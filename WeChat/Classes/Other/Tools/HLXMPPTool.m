@@ -9,6 +9,8 @@
 #import "HLXMPPTool.h"
 #import <XMPPFramework/XMPPFramework.h>
 #import "XMPPvCardCoreDataStorage.h" // 本地CoreData名片信息的存储
+#import "XMPPReconnect.h"
+#import "XMPPRosterCoreDataStorage.h"
 
 
 @interface HLXMPPTool () <XMPPStreamDelegate> {
@@ -17,10 +19,9 @@
     HLRegisterResult _registerBlock;
 }
 
-@property (strong, nonatomic) XMPPStream *stream;
+@property (strong, nonatomic) XMPPReconnect *reconnect; // 自动连接模块
 @property (strong, nonatomic) XMPPvCardAvatarModule *vCarAvatar; // 头像模块
 @property (strong, nonatomic) XMPPvCardCoreDataStorage *vCarStorage; // 名片数据存储
-
 @end
 
 @implementation HLXMPPTool
@@ -59,7 +60,7 @@ singleton_implementation(HLXMPPTool);
 - (void)connectHost {
     [self.stream disconnect];
     NSString *userName = [HLUserInfo sharedHLUserInfo].userName;
-    self.stream.myJID = [XMPPJID jidWithUser:userName domain:@"hllmac.local" resource:@"iphone"];
+    self.stream.myJID = [XMPPJID jidWithUser:userName domain:self.domainName resource:@"iphone"];
     // 连接至服务器。
     NSError *error = nil;
     if (![self.stream connectWithTimeout:XMPPStreamTimeoutNone error:&error]) {
@@ -121,15 +122,39 @@ singleton_implementation(HLXMPPTool);
     }
 }
 
+- (void)teardown {
+    // 移除代理
+    [self.stream removeDelegate:self];
+    // 终止激活状态
+    [self.vCarTemp deactivate];
+    [self.vCarAvatar deactivate];
+    [self.reconnect deactivate];
+    [self.roster deactivate];
+    // 断开连接
+    [self.stream disconnect];
+    // 清空资源
+    self.stream = nil;
+    self.vCarStorage = nil;
+    self.vCarAvatar = nil;
+    self.vCarTemp = nil;
+    self.reconnect = nil;
+    self.roster = nil;
+    self.rosterStorage = nil;
+}
+
+#pragma mark - 添加模块
+
 - (XMPPStream *)stream {
     if (!_stream) {
         _stream = [[XMPPStream alloc] init];
-        _stream.hostName = @"hllmac.local";
+        _stream.hostName = self.domainName;
         _stream.hostPort = 5222;
         [_stream addDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
         
         [self vCarTemp]; // 关联名片模块并激活
         [self vCarAvatar]; // 关联头像模块并激活
+        [self reconnect]; // 关联自动连接模块
+        [self roster]; // 关联花名册模块
     }
     return _stream;
 }
@@ -155,6 +180,33 @@ singleton_implementation(HLXMPPTool);
         [_vCarAvatar activate:self.stream];
     }
     return _vCarAvatar;
+}
+
+- (XMPPReconnect *)reconnect {
+    if (!_reconnect) {
+        _reconnect = [[XMPPReconnect alloc] init];
+        [_reconnect activate:self.stream];
+    }
+    return _reconnect;
+}
+
+- (XMPPRosterCoreDataStorage *)rosterStorage {
+    if (!_rosterStorage) {
+        _rosterStorage = [[XMPPRosterCoreDataStorage alloc] init];
+    }
+    return _rosterStorage;
+}
+
+- (XMPPRoster *)roster {
+    if (!_roster) {
+        _roster = [[XMPPRoster alloc] initWithRosterStorage:self.rosterStorage];
+        [_roster activate:self.stream];
+    }
+    return _roster;
+}
+
+- (NSString *)domainName {
+    return @"hllmac.local";
 }
 
 @end

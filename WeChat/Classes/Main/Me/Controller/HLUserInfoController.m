@@ -45,6 +45,8 @@ typedef NS_ENUM(NSUInteger, HLCellType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupUserInfo];
+    self.tableView.sectionHeaderHeight = 5;
+    self.tableView.sectionFooterHeight = 5;
 }
 
 - (void)setupUserInfo {
@@ -73,13 +75,13 @@ typedef NS_ENUM(NSUInteger, HLCellType) {
     self.orgUnitCell.detailTextLabel.text = myVCardTemp.orgUnits.lastObject;
     
     self.postCell.tag = HLCellShowVC;
-    self.postCell.detailTextLabel.text = myVCardTemp.role;
+    self.postCell.detailTextLabel.text = myVCardTemp.title;
     
     self.phoneCell.tag = HLCellShowVC;
-    self.phoneCell.detailTextLabel.text = myVCardTemp.phoneticSound;
+    self.phoneCell.detailTextLabel.text = myVCardTemp.telecomsAddresses.lastObject; // 电话号码返回为nil
     
     self.emailCell.tag = HLCellShowVC;
-    self.emailCell.detailTextLabel.text = myVCardTemp.emailAddresses.lastObject;
+    self.emailCell.detailTextLabel.text = myVCardTemp.mailer;
     
     self.sexCell.tag = HLCellSex;
     
@@ -102,7 +104,7 @@ typedef NS_ENUM(NSUInteger, HLCellType) {
         case HLCellIcon:
             [self setupIcon];
             break;
-        case HLCellShowVC:HLLog(@"弹出普通VC");
+        case HLCellShowVC:
             [self performSegueWithIdentifier:@"showVC" sender:cell];
             break;
         case HLCellORCode:HLLog(@"二维码");
@@ -161,6 +163,14 @@ typedef NS_ENUM(NSUInteger, HLCellType) {
         HLUserInfoUpdateController *updateVC = dest;
         updateVC.cell = sender;
         updateVC.delegate = self;
+        
+        if (sender == self.phoneCell) {
+            updateVC.updateCellType = HLUpdateCellTypePhone;
+        } else if (sender == self.emailCell) {
+            updateVC.updateCellType = HLUpdateCellTypeMail;
+        } else {
+            updateVC.updateCellType = HLUpdateCellTypeOther;
+        }
     }
 }
 
@@ -171,14 +181,21 @@ typedef NS_ENUM(NSUInteger, HLCellType) {
     vCardTemp.photo = UIImageJPEGRepresentation(iconView.image, 0.8);
     vCardTemp.nickname = self.nickNameCell.detailTextLabel.text;
     vCardTemp.orgName = self.orgNameCell.detailTextLabel.text;
-    vCardTemp.orgUnits = @[self.orgUnitCell.detailTextLabel.text];
-    vCardTemp.role = self.postCell.detailTextLabel.text;
-    vCardTemp.phoneticSound = self.phoneCell.detailTextLabel.text;
+    vCardTemp.title = self.postCell.detailTextLabel.text;
     vCardTemp.mailer = self.emailCell.detailTextLabel.text;
+    
+    NSString *orgUnit = self.orgUnitCell.detailTextLabel.text;
+    if (orgUnit.length > 0) {
+        vCardTemp.orgUnits = @[orgUnit];
+    }
+    NSString *telecom = self.phoneCell.detailTextLabel.text;
+    if (telecom.length > 0) {
+        vCardTemp.telecomsAddresses = @[telecom];
+    }
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [vCardTempModule updateMyvCardTemp:vCardTemp];
     });
-    
 }
 
 - (void)dealloc {

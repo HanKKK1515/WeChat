@@ -19,7 +19,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [self setupSVProgressHUD];
-    [self setupNavigationBar];
     [self setupTabBar];
     [self setupFirstPage];
     return YES;
@@ -30,24 +29,7 @@
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     [SVProgressHUD setDefaultAnimationType:SVProgressHUDAnimationTypeNative];
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
-}
-
-// 设置导航栏样式
-- (void)setupNavigationBar {
-    UINavigationBar *appearance = [UINavigationBar appearance];
-    [appearance setBackgroundImage:[UIImage imageNamed:@"topbarbg_Nav"] forBarMetrics:UIBarMetricsDefault];
-    NSMutableDictionary *fontAttribNav = [NSMutableDictionary dictionary];
-    fontAttribNav[NSForegroundColorAttributeName] = [UIColor whiteColor];
-    fontAttribNav[NSFontAttributeName] = [UIFont boldSystemFontOfSize:18];
-    appearance.titleTextAttributes = fontAttribNav;
-    
-    appearance.tintColor = [UIColor whiteColor];
-    
-    UIBarButtonItem *item = [UIBarButtonItem appearance];
-    NSMutableDictionary *fontAttribItem = [NSMutableDictionary dictionary];
-    fontAttribItem[NSFontAttributeName] = [UIFont boldSystemFontOfSize:16];
-    fontAttribItem[NSForegroundColorAttributeName] = [UIColor whiteColor];
-    [item setTitleTextAttributes:fontAttribItem forState:UIControlStateDisabled];
+    [SVProgressHUD setMinimumDismissTimeInterval:2];
 }
 
 // 设置标签栏样式
@@ -94,6 +76,10 @@
         otherLoginVc.useType = HLUseFirstLogin;
         self.window.rootViewController = otherLoginNav;
     }
+}
+
+- (void)dealloc {
+    [[HLXMPPTool sharedHLXMPPTool] teardown];
 }
 
 @end

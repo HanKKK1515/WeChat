@@ -199,10 +199,18 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="其他方式登录" id="XMN-vg-JSH">
-                        <barButtonItem key="leftBarButtonItem" title="取消" id="euR-wp-xRx">
-                            <connections>
-                                <action selector="cancel:" destination="aQo-ju-1Fc" id="N7F-lZ-v08"/>
-                            </connections>
+                        <barButtonItem key="leftBarButtonItem" id="MkO-nc-jXV">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Lrj-0o-Kis">
+                                <rect key="frame" x="16" y="7" width="70" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <inset key="imageEdgeInsets" minX="-40" minY="5" maxX="0.0" maxY="5"/>
+                                <state key="normal" image="navigationbar_back">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancel" destination="aQo-ju-1Fc" eventType="touchUpInside" id="Ib1-7c-jFz"/>
+                                </connections>
+                            </button>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="注册" id="hlX-v7-amB">
                             <connections>
@@ -211,7 +219,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="cancelBtn" destination="euR-wp-xRx" id="y9d-bN-xPe"/>
+                        <outlet property="cancelBtn" destination="Lrj-0o-Kis" id="2Qa-ZY-3A9"/>
                         <outlet property="leftConstraint" destination="aVn-t8-rWN" id="ehn-1m-mEo"/>
                         <outlet property="loginBtn" destination="CPS-ag-alh" id="AGh-jR-K5y"/>
                         <outlet property="pwdField" destination="71I-9G-Ifo" id="0Ie-Dg-CEY"/>
@@ -227,7 +235,7 @@
         <!--登录Nvc-->
         <scene sceneID="XgE-Tj-sh6">
             <objects>
-                <navigationController storyboardIdentifier="loginNav" automaticallyAdjustsScrollViewInsets="NO" id="ptB-RB-pX6" userLabel="登录Nvc" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="loginNav" automaticallyAdjustsScrollViewInsets="NO" id="ptB-RB-pX6" userLabel="登录Nvc" customClass="HLNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7GP-oi-MT4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -245,7 +253,7 @@
         <!--其他方式登录Nvc-->
         <scene sceneID="7zc-xa-ORv">
             <objects>
-                <navigationController storyboardIdentifier="otherLoginNav" automaticallyAdjustsScrollViewInsets="NO" id="uBb-0J-rUh" userLabel="其他方式登录Nvc" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="otherLoginNav" automaticallyAdjustsScrollViewInsets="NO" id="uBb-0J-rUh" userLabel="其他方式登录Nvc" customClass="HLNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="KFl-xL-DKA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -263,5 +271,6 @@
     </scenes>
     <resources>
         <image name="fts_default_headimage" width="36" height="36"/>
+        <image name="navigationbar_back" width="30" height="30"/>
     </resources>
 </document>

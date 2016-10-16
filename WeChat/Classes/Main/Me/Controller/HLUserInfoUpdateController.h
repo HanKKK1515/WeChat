@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, HLUpdateCellType) {
+    HLUpdateCellTypeOther,
+    HLUpdateCellTypePhone,
+    HLUpdateCellTypeMail
+};
+
 @class HLUserInfoUpdateController;
 @protocol HLUserInfoUpdateControllerDelegate <NSObject>
 
@@ -20,5 +26,6 @@
 
 @property (weak, nonatomic) id<HLUserInfoUpdateControllerDelegate> delegate;
 @property (weak, nonatomic) UITableViewCell *cell;
+@property (assign, nonatomic) HLUpdateCellType updateCellType;
 
 @end

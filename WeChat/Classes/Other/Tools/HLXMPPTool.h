@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "Singleton.h"
 #import "XMPPvCardTemp.h"
-#import "XMPPvCardTempModule.h" // 电子名片的获取和读取
+#import "XMPPvCardTempModule.h"
+#import "XMPPRoster.h"
+#import "XMPPRosterCoreDataStorage.h"
 
 typedef NS_ENUM(NSInteger, HLLoginResultType) {
     HLLoginResultSuccess, // 登录成功
@@ -36,10 +38,15 @@ typedef void (^HLRegisterResult)(HLRegisterResultType result);
 
 singleton_interface(HLXMPPTool);
 
+@property (strong, nonatomic) XMPPStream *stream;
 @property (strong, nonatomic) XMPPvCardTempModule *vCarTemp; // 名片模块
+@property (strong, nonatomic) XMPPRoster *roster; // 花名册模块
+@property (strong, nonatomic) XMPPRosterCoreDataStorage *rosterStorage; // 花名册数据存储
+@property (strong, nonatomic) NSString *domainName;
 
-- (void)userLogin:(HLLoginResult)block;
-- (void)userLogout:(HLLogoutResult)block;
-- (void)userRegister:(HLRegisterResult)block;
+- (void)userLogin:(HLLoginResult)block; // 登录
+- (void)userLogout:(HLLogoutResult)block; // 注销
+- (void)userRegister:(HLRegisterResult)block; // 注册
+- (void)teardown; // 销毁
 
 @end

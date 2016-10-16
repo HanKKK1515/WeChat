@@ -39,6 +39,14 @@
 }
 
 - (IBAction)clickSave:(UIBarButtonItem *)sender {
+    if (self.updateCellType == HLUpdateCellTypePhone && !self.textField.isTelphoneNum) {
+        [SVProgressHUD showErrorWithStatus:@"电话号码格式不正确！"];
+        return;
+    } else if (self.updateCellType == HLUpdateCellTypeMail && !self.textField.isMailbox) {
+        [SVProgressHUD showErrorWithStatus:@"邮箱格式不正确！"];
+        return;
+    }
+    
     self.cell.detailTextLabel.text = self.textField.text;
     if ([self.delegate respondsToSelector:@selector(userInfoDidChange)]) {
         [self.delegate userInfoDidChange];
@@ -53,6 +61,10 @@
 
 - (void)textFieldDidChange {
     self.save.enabled = self.textField.text.length > 0;
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
 }
 
 - (void)didReceiveMemoryWarning {
