@@ -47,6 +47,10 @@
 
 - (void)loginSuccess {
     self.view.window.rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
+    HLUserInfo *userInfo = [HLUserInfo sharedHLUserInfo];
+    userInfo.photo = [HLXMPPTool sharedHLXMPPTool].vCarTemp.myvCardTemp.photo;
+    userInfo.previousUserName = @"";
+    [userInfo saveUserInfoData];
 }
 
 
@@ -75,14 +79,20 @@
     [self userLogin];
 }
 
-#pragma mark -
 - (void)failureWithText:(NSString *)text {
     [SVProgressHUD showErrorWithStatus:text];
+    
     HLUserInfo *userInfo = [HLUserInfo sharedHLUserInfo];
-    userInfo.userName = userInfo.previousUserName;
-    userInfo.previousUserName = @"";
+    if (userInfo.previousUserName) {
+        userInfo.userName = userInfo.previousUserName;
+        userInfo.previousUserName = @"";
+    }
     userInfo.pwd = @"";
     [userInfo saveUserInfoData];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
 }
 
 - (void)didReceiveMemoryWarning {

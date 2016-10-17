@@ -179,6 +179,11 @@ typedef NS_ENUM(NSUInteger, HLCellType) {
     XMPPvCardTemp *vCardTemp = vCardTempModule.myvCardTemp;
     UIImageView *iconView = [self.iconCell.contentView viewWithTag:1];
     vCardTemp.photo = UIImageJPEGRepresentation(iconView.image, 0.8);
+    
+    HLUserInfo *user = [HLUserInfo sharedHLUserInfo];
+    user.photo = vCardTemp.photo;
+    [user saveUserInfoData];
+    
     vCardTemp.nickname = self.nickNameCell.detailTextLabel.text;
     vCardTemp.orgName = self.orgNameCell.detailTextLabel.text;
     vCardTemp.title = self.postCell.detailTextLabel.text;

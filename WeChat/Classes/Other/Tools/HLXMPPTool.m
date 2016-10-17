@@ -8,7 +8,8 @@
 
 #import "HLXMPPTool.h"
 #import <XMPPFramework/XMPPFramework.h>
-#import "XMPPvCardCoreDataStorage.h" // 本地CoreData名片信息的存储
+#import "XMPPvCardCoreDataStorage.h"
+#import "XMPPvCardAvatarModule.h"
 #import "XMPPReconnect.h"
 #import "XMPPRosterCoreDataStorage.h"
 
@@ -20,7 +21,6 @@
 }
 
 @property (strong, nonatomic) XMPPReconnect *reconnect; // 自动连接模块
-@property (strong, nonatomic) XMPPvCardAvatarModule *vCarAvatar; // 头像模块
 @property (strong, nonatomic) XMPPvCardCoreDataStorage *vCarStorage; // 名片数据存储
 @end
 

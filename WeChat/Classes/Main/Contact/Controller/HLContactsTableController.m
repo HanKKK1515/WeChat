@@ -30,20 +30,34 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friendCell" forIndexPath:indexPath];
+    UIImageView *icon = [cell viewWithTag:1];
+    UILabel *name = [cell viewWithTag:2];
+    UILabel *status = [cell viewWithTag:3];
     XMPPUserCoreDataStorageObject *user = self.resultscontroller.fetchedObjects[indexPath.row];
-    cell.textLabel.text = user.jid.user;
+    name.text = user.jid.user;
+    if (user.photo) {
+        icon.image = user.photo;
+    } else {
+        NSData *photo = [[HLXMPPTool sharedHLXMPPTool].vCarAvatar photoDataForJID:user.jid];
+        if (photo) {
+            icon.image = [UIImage imageWithData:photo];
+        } else {
+            icon.image = [UIImage imageNamed:@"fts_default_headimage"];
+        }
+    }
+    
     switch ([user.sectionNum integerValue]) {
         case 0:
-            cell.detailTextLabel.text = @"在线";
-            cell.detailTextLabel.textColor = [UIColor orangeColor];
+            status.text = @"在线";
+            status.textColor = [UIColor orangeColor];
             break;
         case 1:
-            cell.detailTextLabel.text = @"离开";
-            cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+            status.text = @"离开";
+            status.textColor = [UIColor lightGrayColor];
             break;
         case 2:
-            cell.detailTextLabel.text = @"离线";
-            cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+            status.text = @"离线";
+            status.textColor = [UIColor lightGrayColor];
             break;
     }
     return cell;

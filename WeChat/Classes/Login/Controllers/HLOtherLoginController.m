@@ -84,16 +84,12 @@
 - (void)setupBackground {
     self.userField.background = [UIImage stretchedImageWithName:@"operationbox_text"];
     self.pwdField.background = [UIImage stretchedImageWithName:@"operationbox_text"];
-    UIView *leftUserView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, self.userField.h)];
-    UIView *LeftPwdView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, self.pwdField.h)];
-    self.userField.leftView = leftUserView;
-    self.pwdField.leftView = LeftPwdView;
-    self.userField.leftViewMode = UITextFieldViewModeAlways;
-    self.pwdField.leftViewMode = UITextFieldViewModeAlways;
-    
-    [self.loginBtn setStretchedN_BG:@"fts_green_btn" H_BG:@"fts_green_btn_HL"];
     self.userField.delegate = self;
     self.pwdField.delegate = self;
+    [self.userField limitHansLength:11 otherLength:11];
+    [self.pwdField limitHansLength:16 otherLength:16];
+    
+    [self.loginBtn setStretchedN_BG:@"fts_green_btn" H_BG:@"fts_green_btn_HL"];
 }
 
 - (IBAction)cancel {

@@ -71,7 +71,10 @@
 - (void)setupBackground {
     self.pwdField.background = [UIImage stretchedImageWithName:@"operationbox_text"];
     [self.pwdField addLeftViewWithImage:@"Card_Lock"];
+    [self.pwdField limitHansLength:16 otherLength:16];
     
+    self.icon.layer.cornerRadius = 10;
+    self.icon.clipsToBounds = YES;
     [self.loginBtn setStretchedN_BG:@"fts_green_btn" H_BG:@"fts_green_btn_HL"];
 }
 
@@ -80,6 +83,8 @@
     XMPPvCardTemp *vCardTemp = [HLXMPPTool sharedHLXMPPTool].vCarTemp.myvCardTemp;
     if (vCardTemp.photo) {
         self.icon.image = [UIImage imageWithData:vCardTemp.photo];
+    } else if ([HLUserInfo sharedHLUserInfo].photo) {
+        self.icon.image = [UIImage imageWithData:[HLUserInfo sharedHLUserInfo].photo];
     }
     self.userLabel.text = [HLUserInfo sharedHLUserInfo].userName;
     self.pwdField.delegate = self;
@@ -89,7 +94,8 @@
     [self.view endEditing:NO];
     
     HLUserInfo *userInfo = [HLUserInfo sharedHLUserInfo];
-    userInfo.pwd = self.pwdField.text; // [self.pwdField.text md5String];
+    userInfo.previousUserName = userInfo.userName;
+    userInfo.pwd = self.pwdField.text; // [self.pwdField.text md5String]; // 密码加密
     [userInfo saveUserInfoData];
     
     [super userLogin];

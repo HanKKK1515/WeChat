@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface UITextField (WF)
-
+@property NSInteger hans;
+@property NSInteger other;
 /**
- 添加文件输入框左边的View,添加图片
+ * 添加文件输入框左边的View,添加图片
  */
 - (void)addLeftViewWithImage:(NSString *)image;
 
@@ -21,8 +22,12 @@
 - (BOOL)isTelphoneNum;
 
 /**
- *  判断是否为邮箱
+ * 判断是否为邮箱
  */
 - (BOOL)isMailbox;
 
+/**
+ * 限制输入汉字和字符长度
+ */
+- (void)limitHansLength:(int)hans otherLength:(int)other;
 @end

@@ -10,6 +10,7 @@
 #import "Singleton.h"
 #import "XMPPvCardTemp.h"
 #import "XMPPvCardTempModule.h"
+#import "XMPPvCardCoreDataStorage.h"
 #import "XMPPRoster.h"
 #import "XMPPRosterCoreDataStorage.h"
 
@@ -42,6 +43,7 @@ singleton_interface(HLXMPPTool);
 @property (strong, nonatomic) XMPPvCardTempModule *vCarTemp; // 名片模块
 @property (strong, nonatomic) XMPPRoster *roster; // 花名册模块
 @property (strong, nonatomic) XMPPRosterCoreDataStorage *rosterStorage; // 花名册数据存储
+@property (strong, nonatomic) XMPPvCardAvatarModule *vCarAvatar; // 头像模块
 @property (strong, nonatomic) NSString *domainName;
 
 - (void)userLogin:(HLLoginResult)block; // 登录

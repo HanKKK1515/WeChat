@@ -20,6 +20,7 @@ singleton_implementation(HLUserInfo);
     userInfo.userName = [defaults objectForKey:@"userName"];
     userInfo.pwd = [defaults objectForKey:@"pwd"];
     userInfo.previousUserName = [defaults objectForKey:@"previousUserName"];
+    userInfo.photo = [defaults objectForKey:@"photo"];
 }
 
 - (void)saveUserInfoData {
@@ -28,6 +29,7 @@ singleton_implementation(HLUserInfo);
         [defaults setObject:self.userName forKey:@"userName"];
         [defaults setObject:self.pwd forKey:@"pwd"];
         [defaults setObject:self.previousUserName forKey:@"previousUserName"];
+        [defaults setObject:self.photo forKey:@"photo"];
         [defaults synchronize];
     });
 }

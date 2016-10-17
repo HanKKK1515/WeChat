@@ -16,6 +16,7 @@ singleton_interface(HLUserInfo);
 @property (copy, nonatomic) NSString *userName;
 @property (copy, nonatomic) NSString *pwd;
 @property (copy, nonatomic) NSString *previousUserName;
+@property (strong, nonatomic) NSData *photo;
 
 - (void)loadUserInfoData;
 - (void)saveUserInfoData;

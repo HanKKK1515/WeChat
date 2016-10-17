@@ -21,9 +21,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.textField.background = [UIImage stretchedImageWithName:@"operationbox_text"];
-    UIView *leftUserView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, self.textField.h)];
-    self.textField.leftView = leftUserView;
-    self.textField.leftViewMode = UITextFieldViewModeAlways;
     self.textField.delegate = self;
     
     self.title = self.cell.textLabel.text;
