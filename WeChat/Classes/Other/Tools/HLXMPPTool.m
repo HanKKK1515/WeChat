@@ -7,14 +7,10 @@
 //
 
 #import "HLXMPPTool.h"
-#import <XMPPFramework/XMPPFramework.h>
-#import "XMPPvCardCoreDataStorage.h"
-#import "XMPPvCardAvatarModule.h"
 #import "XMPPReconnect.h"
-#import "XMPPRosterCoreDataStorage.h"
 
 
-@interface HLXMPPTool () <XMPPStreamDelegate> {
+@interface HLXMPPTool () <XMPPStreamDelegate, XMPPRosterDelegate> {
     HLLoginResult _loginBlock;
     HLLogoutResult _logoutBlock;
     HLRegisterResult _registerBlock;
@@ -122,6 +118,65 @@ singleton_implementation(HLXMPPTool);
     }
 }
 
+
+#pragma mark - XMPPRosterDelegate
+// 加好友回调函数
+- (void)xmppRoster:(XMPPRoster *)sender didReceivePresenceSubscriptionRequest:(XMPPPresence *)presence {
+    // available: 表示处于在线状态(通知好友在线)
+    // unavailable: 表示处于离线状态（通知好友下线）
+    // subscribe: 表示发出添加好友的申请（添加好友请求）
+    // unsubscribe: 表示发出删除好友的申请（删除好友请求）
+    // unsubscribed: 表示拒绝添加对方为好友（拒绝添加对方为好友）
+    // error: 表示presence信息报中包含了一个错误消息。（出错）
+    NSString *type = presence.type;
+    // 发送请求者
+    NSString *fromUser = [presence from].user;
+    // 接收者
+    NSString *toUser = [presence to].user;
+    if ([fromUser isEqualToString:toUser]) {
+        [SVProgressHUD showErrorWithStatus:@"不能加自己为好友！"];
+        return;
+    }
+    
+    if ([type isEqualToString:@"subscribe"]) {
+        HLLog(@"申请添加好友！");
+    } else if ([type isEqualToString:@"unsubscribe"]) {
+        HLLog(@"申请删除好友！");
+        // 接受添加好友请求,发送type=@"subscribed"表示已经同意添加好友请求并添加到好友花名册中
+        [self.roster acceptPresenceSubscriptionRequestFrom:presence.from andAddToRoster:YES];
+    } else if ([type isEqualToString:@"unsubscribed"]) {
+        HLLog(@"拒绝添加好友！");
+    }
+}
+
+// 添加好友同意后调用
+- (void)xmppRoster:(XMPPRoster *)sender didReceiveRosterPush:(XMPPIQ *)iq {
+    NSLog(@"添加成功!!!didReceiveRosterPush -> :%@",iq.description);
+    
+    DDXMLElement *query = [iq elementsForName:@"query"][0];
+    DDXMLElement *item = [query elementsForName:@"item"][0];
+    
+    NSString *subscription = [[item attributeForName:@"subscription"] stringValue];
+    // 对方请求添加我为好友且我已同意
+    if ([subscription isEqualToString:@"from"]) {// 对方关注我
+        NSLog(@"我已同意对方添加我为好友的请求");
+    }
+    // 我成功添加对方为好友
+    else if ([subscription isEqualToString:@"to"]) {// 我关注对方
+        NSLog(@"我成功添加对方为好友，即对方已经同意我添加好友的请求");
+    } else if ([subscription isEqualToString:@"remove"]) {
+        
+    }
+}
+
+// 已经互为好友以后调用
+- (void)xmppRoster:(XMPPRoster *)sender didReceiveRosterItem:(DDXMLElement *)item {
+    NSString *subscription = [item attributeStringValueForName:@"subscription"];
+    if ([subscription isEqualToString:@"both"]) {
+        NSLog(@"双方已经互为好友");
+    }
+}
+
 - (void)teardown {
     // 移除代理
     [self.stream removeDelegate:self];
@@ -130,6 +185,7 @@ singleton_implementation(HLXMPPTool);
     [self.vCarAvatar deactivate];
     [self.reconnect deactivate];
     [self.roster deactivate];
+    [self.messageArchiving deactivate];
     // 断开连接
     [self.stream disconnect];
     // 清空资源
@@ -140,6 +196,8 @@ singleton_implementation(HLXMPPTool);
     self.reconnect = nil;
     self.roster = nil;
     self.rosterStorage = nil;
+    self.messageArchiving = nil;
+    self.messageStorage = nil;
 }
 
 #pragma mark - 添加模块
@@ -155,6 +213,7 @@ singleton_implementation(HLXMPPTool);
         [self vCarAvatar]; // 关联头像模块并激活
         [self reconnect]; // 关联自动连接模块
         [self roster]; // 关联花名册模块
+        [self messageArchiving]; // 关联消息模块
     }
     return _stream;
 }
@@ -203,6 +262,21 @@ singleton_implementation(HLXMPPTool);
         [_roster activate:self.stream];
     }
     return _roster;
+}
+
+- (XMPPMessageArchivingCoreDataStorage *)messageStorage {
+    if (!_messageStorage) {
+        _messageStorage = [[XMPPMessageArchivingCoreDataStorage alloc] init];
+    }
+    return _messageStorage;
+}
+
+- (XMPPMessageArchiving *)messageArchiving {
+    if (!_messageArchiving) {
+        _messageArchiving = [[XMPPMessageArchiving alloc] initWithMessageArchivingStorage:self.messageStorage];
+        [_messageArchiving activate:self.stream];
+    }
+    return _messageArchiving;
 }
 
 - (NSString *)domainName {

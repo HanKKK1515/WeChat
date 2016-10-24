@@ -21,6 +21,7 @@ singleton_implementation(HLUserInfo);
     userInfo.pwd = [defaults objectForKey:@"pwd"];
     userInfo.previousUserName = [defaults objectForKey:@"previousUserName"];
     userInfo.photo = [defaults objectForKey:@"photo"];
+    userInfo.keyboardHeight = [defaults floatForKey:@"keyboardHeight"];
 }
 
 - (void)saveUserInfoData {
@@ -30,6 +31,7 @@ singleton_implementation(HLUserInfo);
         [defaults setObject:self.pwd forKey:@"pwd"];
         [defaults setObject:self.previousUserName forKey:@"previousUserName"];
         [defaults setObject:self.photo forKey:@"photo"];
+        [defaults setFloat:self.keyboardHeight forKey:@"keyboardHeight"];
         [defaults synchronize];
     });
 }

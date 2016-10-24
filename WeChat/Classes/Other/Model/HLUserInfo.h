@@ -17,6 +17,7 @@ singleton_interface(HLUserInfo);
 @property (copy, nonatomic) NSString *pwd;
 @property (copy, nonatomic) NSString *previousUserName;
 @property (strong, nonatomic) NSData *photo;
+@property (assign, nonatomic) CGFloat keyboardHeight;
 
 - (void)loadUserInfoData;
 - (void)saveUserInfoData;

@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "HLOtherLoginController.h"
 
-#define HLTabBarItemColor(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
 
 @interface AppDelegate ()
 @end
@@ -36,7 +35,7 @@
 - (void)setupTabBar {
     UITabBar *tabBar = [UITabBar appearance];
     tabBar.backgroundImage = [UIImage imageNamed:@"tabbar_background"];
-    tabBar.tintColor = HLTabBarItemColor(61, 187, 3, 1);
+    tabBar.tintColor = HLColor(61, 187, 3, 1);
     
     UITabBarItem *item = [UITabBarItem appearance];
     NSMutableDictionary *fontAttribItem = [NSMutableDictionary dictionary];

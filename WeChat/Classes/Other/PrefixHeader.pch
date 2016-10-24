@@ -9,10 +9,11 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
-#import "CategoryWF.h"
+#import "CategoryHL.h"
 #import "SVProgressHUD.h"
 #import "HLUserInfo.h"
 #import "HLXMPPTool.h"
+#import "HLHttpTool.h"
 
 static const CGFloat loginLeftMarginPhone = 20;
 static const CGFloat loginRightMarginPhone = 20;
@@ -20,6 +21,8 @@ static const CGFloat loginLeftMarginPadV = 100;
 static const CGFloat loginRightMarginPadV = 100;
 static const CGFloat loginLeftMarginPadH = 200;
 static const CGFloat loginRightMarginPadH = 200;
+
+#define HLColor(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
 
 #if TARGET_IPHONE_SIMULATOR//模拟器
 

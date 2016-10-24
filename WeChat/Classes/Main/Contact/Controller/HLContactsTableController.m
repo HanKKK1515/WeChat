@@ -7,6 +7,7 @@
 //
 
 #import "HLContactsTableController.h"
+#import "HLChatViewController.h"
 
 @interface HLContactsTableController () <NSFetchedResultsControllerDelegate>
 @property (strong, nonatomic) NSFetchedResultsController *resultsController;
@@ -16,10 +17,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -88,10 +85,27 @@
     return _resultsController;
 }
 
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView reloadData];
+}
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         XMPPUserCoreDataStorageObject *user = self.resultscontroller.fetchedObjects[indexPath.row];
         [[HLXMPPTool sharedHLXMPPTool].roster removeUser:user.jid];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    XMPPUserCoreDataStorageObject *user = self.resultscontroller.fetchedObjects[indexPath.row];
+    [self performSegueWithIdentifier:@"chatSegue" sender:user.jid];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    id dest = segue.destinationViewController;
+    if ([dest isMemberOfClass:HLChatViewController.class]) {
+        HLChatViewController *chatVC = (HLChatViewController *)dest;
+        chatVC.jid = sender;
     }
 }
 
