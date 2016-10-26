@@ -20,5 +20,8 @@
 @interface HLKBCollectionFlowLayout : UICollectionViewFlowLayout
 
 @property (weak, nonatomic) id<HLKBCollectionFlowLayoutDelegate> delegate;
+@property (assign, nonatomic) int rowNo; // 行数
+@property (assign, nonatomic) int colNo; // 列数
+@property (assign, nonatomic) CGFloat labelH; // 文字标签的高度
 
 @end

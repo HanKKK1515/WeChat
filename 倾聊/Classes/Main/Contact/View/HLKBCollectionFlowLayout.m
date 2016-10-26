@@ -12,20 +12,17 @@
 
 - (void)prepareLayout {
     [super prepareLayout];
-    int rowNo = 2;
-    int colNo = 4;
     CGFloat rowMargin = 20;
     CGFloat insetTop = 20;
     CGFloat insetLeft = 10;
     CGFloat insetBottom = 30;
     CGFloat insetRight = 10;
-    CGFloat labelH = 20;
     CGFloat collectionH = self.collectionView.frame.size.height;
     CGFloat collectionW = self.collectionView.frame.size.width;
     
-    CGFloat itemH = (collectionH - (rowNo - 1) * rowMargin - insetTop - insetBottom) / rowNo;
-    CGFloat itemW = itemH - labelH;
-    CGFloat colMargin = (collectionW - itemW * colNo - insetLeft - insetRight) / (colNo - 1);
+    CGFloat itemH = (collectionH - (self.rowNo - 1) * rowMargin - insetTop - insetBottom) / self.rowNo;
+    CGFloat itemW = itemH - self.labelH;
+    CGFloat colMargin = (collectionW - itemW * self.colNo - insetLeft - insetRight) / (self.colNo - 1);
     
     self.itemSize = CGSizeMake(itemW, itemH);
     self.minimumInteritemSpacing = rowMargin;

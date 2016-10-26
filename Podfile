@@ -11,6 +11,6 @@ use_frameworks!
 
 pod 'XMPPFramework', :git => "https://github.com/robbiehanson/XMPPFramework.git", :branch => 'master'
 pod 'SVProgressHUD', '~> 2.0.3'
-
+pod 'SDWebImage', '~> 4.0.0-beta2'
 
 end

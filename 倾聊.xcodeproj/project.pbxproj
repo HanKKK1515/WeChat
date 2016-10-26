@@ -28,6 +28,7 @@
 		E459744E1DC0603700AC0C9A /* HLKBCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E459744D1DC0603700AC0C9A /* HLKBCollectionCell.m */; };
 		E45974501DC0609F00AC0C9A /* HLKBCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E459744F1DC0609F00AC0C9A /* HLKBCollectionCell.xib */; };
 		E45974531DC06BF000AC0C9A /* HLKeyboardItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E45974521DC06BF000AC0C9A /* HLKeyboardItemModel.m */; };
+		E45974551DC0854000AC0C9A /* emoji_monkey.plist in Resources */ = {isa = PBXBuildFile; fileRef = E45974541DC0854000AC0C9A /* emoji_monkey.plist */; };
 		E4611E181DA3EFE30064AD6C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4611E171DA3EFE30064AD6C /* AppDelegate.m */; };
 		E4611E1B1DA3F05C0064AD6C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4611E1A1DA3F05C0064AD6C /* Main.storyboard */; };
 		E4611E2A1DA3F2170064AD6C /* HLLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4611E251DA3F2170064AD6C /* HLLoginController.m */; };
@@ -88,6 +89,7 @@
 		E459744F1DC0609F00AC0C9A /* HLKBCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HLKBCollectionCell.xib; sourceTree = "<group>"; };
 		E45974511DC06BF000AC0C9A /* HLKeyboardItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLKeyboardItemModel.h; sourceTree = "<group>"; };
 		E45974521DC06BF000AC0C9A /* HLKeyboardItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLKeyboardItemModel.m; sourceTree = "<group>"; };
+		E45974541DC0854000AC0C9A /* emoji_monkey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = emoji_monkey.plist; sourceTree = "<group>"; };
 		E4611E161DA3EFE30064AD6C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E4611E171DA3EFE30064AD6C /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		E4611E191DA3F0130064AD6C /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -444,6 +446,7 @@
 				E48E4E551DB32FE600C4A25F /* Contact */,
 				E4611E1A1DA3F05C0064AD6C /* Main.storyboard */,
 				E43E564C1DBA4E8E005551D0 /* keyboard.plist */,
+				E45974541DC0854000AC0C9A /* emoji_monkey.plist */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 			files = (
 				E454D4E51D9FD3BD00EA1B08 /* LaunchScreen.storyboard in Resources */,
 				E454D4E21D9FD3BD00EA1B08 /* Assets.xcassets in Resources */,
+				E45974551DC0854000AC0C9A /* emoji_monkey.plist in Resources */,
 				E4C045DC1DA0EF9E0013172D /* Login.storyboard in Resources */,
 				E4611E1B1DA3F05C0064AD6C /* Main.storyboard in Resources */,
 				E43E564B1DBA311F005551D0 /* HLCustomKeyboard.xib in Resources */,

@@ -12,11 +12,13 @@
 #import "HLKBCollectionCell.h"
 
 @interface HLCustomKeyboard () <UICollectionViewDelegate, UICollectionViewDataSource, HLKBCollectionFlowLayoutDelegate>
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageVC;
 @property (strong, nonatomic) UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
+@property (strong, nonatomic) HLKBCollectionFlowLayout *keyboardFL;
 
-@property (strong, nonatomic) NSArray *icons;
+@property (strong, nonatomic) NSArray *componentIcons;
+@property (strong, nonatomic) NSArray *emjIcons;
 @end
 
 @implementation HLCustomKeyboard
@@ -30,8 +32,13 @@
     self = [super initWithCoder:coder];
     if (self) {
         self.backgroundImage.image = [UIImage stretchedImageWithName:@"keyboard_bg"];
+        
         HLKBCollectionFlowLayout *keyboardFL = [[HLKBCollectionFlowLayout alloc] init];
         keyboardFL.delegate = self;
+        keyboardFL.rowNo = 2;
+        keyboardFL.colNo = 4;
+        self.keyboardFL = keyboardFL;
+        
         UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.frame collectionViewLayout:keyboardFL];
         collectionView.backgroundColor = [UIColor clearColor];
         collectionView.delegate = self;
@@ -55,26 +62,56 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.icons.count;
+    if (self.keyboardType == HLKeyboardStatusEmotion) {
+        return self.emjIcons.count;
+    } else if (self.keyboardType == HLKeyboardStatusMore) {
+        return self.componentIcons.count;
+    }
+    return 0;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     HLKBCollectionCell *cell = [HLKBCollectionCell itemWithCollectionView:collectionView indexPath:indexPath];
-    HLKeyboardItemModel *model = self.icons[indexPath.item];
-    cell.icon.image = [UIImage imageNamed:model.icon];
-    cell.textLabel.text = model.title;
+    if (self.keyboardType == HLKeyboardStatusEmotion) {
+        cell.icon.image = [UIImage imageNamed:self.emjIcons[indexPath.item]];
+        cell.textLabel.text = nil;
+    } else if (self.keyboardType == HLKeyboardStatusMore) {
+        HLKeyboardItemModel *model = self.componentIcons[indexPath.item];
+        cell.icon.image = [UIImage imageNamed:model.icon];
+        cell.textLabel.text = model.title;
+    }
+    
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(customKeyboard:didSelectItem:)]) {
-        HLKeyboardItemModel *model = self.icons[indexPath.item];
-        [self.delegate customKeyboard:self didSelectItem:model.icon];
+        NSString *iconName = nil;
+        if (self.keyboardType == HLKeyboardStatusEmotion) {
+            iconName = self.emjIcons[indexPath.item];
+        } else if (self.keyboardType == HLKeyboardStatusMore) {
+            HLKeyboardItemModel *model = self.componentIcons[indexPath.item];
+            iconName = model.icon;
+        }
+        
+        [self.delegate customKeyboard:self didSelectItem:iconName];
     }
 }
 
-- (NSArray *)icons {
-    if (!_icons) {
+- (void)setKeyboardType:(HLKeyboardStatusType)keyboardType {
+    _keyboardType = keyboardType;
+    if (self.keyboardType == HLKeyboardStatusEmotion) {
+        self.pageVC.numberOfPages = self.emjIcons.count / 8;
+        self.keyboardFL.labelH = 0;
+    } else if (self.keyboardType == HLKeyboardStatusMore) {
+        self.pageVC.numberOfPages = self.componentIcons.count / 8;
+        self.keyboardFL.labelH = 20;
+    }
+    [self.collectionView reloadData];
+}
+
+- (NSArray *)componentIcons {
+    if (!_componentIcons) {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"keyboard.plist" ofType:nil];
         NSArray *iconDict = [NSArray arrayWithContentsOfFile:path];
         NSMutableArray *iconModel = [NSMutableArray array];
@@ -82,9 +119,17 @@
             HLKeyboardItemModel *model = [HLKeyboardItemModel iconWithDict:dict];
             [iconModel addObject:model];
         }
-        _icons = iconModel;
+        _componentIcons = iconModel;
     }
-    return _icons;
+    return _componentIcons;
+}
+
+- (NSArray *)emjIcons {
+    if (!_emjIcons) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"emoji_monkey.plist" ofType:nil];
+        _emjIcons = [NSArray arrayWithContentsOfFile:path];
+    }
+    return _emjIcons;
 }
     
 @end
