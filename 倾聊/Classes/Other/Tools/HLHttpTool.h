@@ -22,7 +22,6 @@ typedef void (^HLHttpToolCompletionBlock)(NSError *error);
         progressBlock : (HLHttpToolProgressBlock)progressBlock
             completion:(HLHttpToolCompletionBlock) completionBlock;
 
-
 - (NSString *)fileSavePath:(NSString *)fileName;
 
 @end

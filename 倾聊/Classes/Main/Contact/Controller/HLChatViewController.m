@@ -209,9 +209,7 @@
     }
     
     if (text.length > 0 && [[text substringFromIndex:text.length - 1] isEqualToString:@"\n"]) {
-        XMPPMessage *msg = [XMPPMessage messageWithType:@"chat" to:self.jid];
-        [msg addBody:[textView.text substringToIndex:text.length -1]];
-        [[HLXMPPTool sharedHLXMPPTool].stream sendElement:msg];
+        [self sendMsgBody:[textView.text substringToIndex:text.length -1] msgType:@"text"];
         textView.text = nil;
     }
     
@@ -220,6 +218,13 @@
         self.textViewHeightConstraint.constant = textViewHeight;
         [textView scrollRangeToVisible:NSMakeRange(0,0)];
     }
+}
+
+- (void)sendMsgBody:(NSString *)body msgType:(NSString *)msgType {
+    XMPPMessage *msg = [XMPPMessage messageWithType:@"chat" to:self.jid];
+    [msg addAttributeWithName:@"msgType" stringValue:msgType];
+    [msg addBody:body];
+    [[HLXMPPTool sharedHLXMPPTool].stream sendElement:msg];
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
@@ -246,13 +251,26 @@
     [self.view endEditing:YES];
 }
 
-
 #pragma mark - HLCustomKeyboardDelegate
 
-- (void)customKeyboard:(HLCustomKeyboard *)customKeyboard didSelectItem:(NSString *)imageName {
-    NSLog(@"%@", imageName);
+- (void)customKeyboard:(HLCustomKeyboard *)customKeyboard didSelectItem:(UIImage *)image {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyyMMddHHmmss";
+    NSString *date = [formatter stringFromDate:[NSDate date]];
+    NSString *url = @"http://localhost:8080/imfileserver/Upload/Image";
+    url = [url stringByAppendingPathComponent:date];
+    
+    HLHttpTool *httpTool = [[HLHttpTool alloc] init];
+    [httpTool uploadData:UIImageJPEGRepresentation(image, 0.8) url:[NSURL URLWithString:url] progressBlock:nil completion:^(NSError *error) {
+        if (error) {
+            HLLog(@"图片发送失败：%@", error.localizedDescription);
+        } else {
+            [self sendMsgBody:url msgType:@"image"];
+        }
+    }];
 }
 
+#pragma mark - 懒加载
 /**
  *  懒加载
  */

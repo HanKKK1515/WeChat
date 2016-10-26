@@ -18,7 +18,7 @@ typedef NS_ENUM(NSUInteger, HLKeyboardStatusType) {
 @protocol HLCustomKeyboardDelegate <NSObject>
 
 @optional
-- (void)customKeyboard:(HLCustomKeyboard *)customKeyboard didSelectItem:(NSString *)imageName;
+- (void)customKeyboard:(HLCustomKeyboard *)customKeyboard didSelectItem:(UIImage *)image;
 
 @end
 

@@ -11,10 +11,6 @@
 
 @interface HLSendViewCell : HLChatViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *icon;
-@property (weak, nonatomic) IBOutlet UIImageView *sendImage;
-@property (weak, nonatomic) IBOutlet UILabel *msgLabel;
-@property (weak, nonatomic) IBOutlet UILabel *msgTime;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *timeConstraintH;
+- (void)setupContentWithMsgObj:(XMPPMessageArchiving_Message_CoreDataObject *)msgObj showTime:(BOOL)show;
 
 @end

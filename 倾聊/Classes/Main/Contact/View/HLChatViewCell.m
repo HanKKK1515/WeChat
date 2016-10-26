@@ -13,30 +13,13 @@
 @implementation HLChatViewCell
 
 + (instancetype)cellWithTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexpath msgArchivingObj:(XMPPMessageArchiving_Message_CoreDataObject *)msgObj showTime:(BOOL)show {
-    UIImage *defaultHeadimage = [UIImage imageNamed:@"fts_default_headimage"];
     if (msgObj.isOutgoing) {
         HLSendViewCell *sendCell = [tableView dequeueReusableCellWithIdentifier:@"sendCell" forIndexPath:indexpath];
-        NSData *localPhoto = [HLUserInfo sharedHLUserInfo].photo;
-        sendCell.icon.image = localPhoto.length > 0 ? [UIImage imageWithData:localPhoto] : defaultHeadimage;
-        sendCell.msgLabel.text = msgObj.body;
-        if (show) {
-            sendCell.msgTime.text = [NSDate timeIntervarWithDate:msgObj.timestamp];
-            sendCell.timeConstraintH.constant = 20;
-        } else {
-            sendCell.timeConstraintH.constant = 0;
-        }
+        [sendCell setupContentWithMsgObj:msgObj showTime:show];
         return sendCell;
     } else {
         HLReceiveViewCell *receiveCell = [tableView dequeueReusableCellWithIdentifier:@"receiveCell" forIndexPath:indexpath];
-        NSData *photo = [[HLXMPPTool sharedHLXMPPTool].vCarAvatar photoDataForJID:msgObj.bareJid];
-        receiveCell.icon.image =  photo.length > 0 ? [UIImage imageWithData:photo] : defaultHeadimage;
-        receiveCell.msgLabel.text = msgObj.body;
-        if (show) {
-            receiveCell.msgTime.text = [NSDate timeIntervarWithDate:msgObj.timestamp];
-            receiveCell.timeConstraintH.constant = 20;
-        } else {
-            receiveCell.timeConstraintH.constant = 0;
-        }
+        [receiveCell setupContentWithMsgObj:msgObj showTime:show];
         return receiveCell;
     }
 }

@@ -11,7 +11,7 @@
 #import "HLKeyboardItemModel.h"
 #import "HLKBCollectionCell.h"
 
-@interface HLCustomKeyboard () <UICollectionViewDelegate, UICollectionViewDataSource, HLKBCollectionFlowLayoutDelegate>
+@interface HLCustomKeyboard () <UICollectionViewDelegate, UICollectionViewDataSource, HLKBCollectionFlowLayoutDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageVC;
 @property (strong, nonatomic) UICollectionView *collectionView;
@@ -22,6 +22,9 @@
 @end
 
 @implementation HLCustomKeyboard
+
+static const int colNo = 4;
+static const int rowNo = 2;
 
 + (instancetype)keyboard {
     return [[NSBundle mainBundle] loadNibNamed:@"HLCustomKeyboard" owner:nil options:nil].lastObject;
@@ -35,8 +38,8 @@
         
         HLKBCollectionFlowLayout *keyboardFL = [[HLKBCollectionFlowLayout alloc] init];
         keyboardFL.delegate = self;
-        keyboardFL.rowNo = 2;
-        keyboardFL.colNo = 4;
+        keyboardFL.rowNo = rowNo;
+        keyboardFL.colNo = colNo;
         self.keyboardFL = keyboardFL;
         
         UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.frame collectionViewLayout:keyboardFL];
@@ -86,25 +89,56 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(customKeyboard:didSelectItem:)]) {
-        NSString *iconName = nil;
         if (self.keyboardType == HLKeyboardStatusEmotion) {
-            iconName = self.emjIcons[indexPath.item];
+            NSString *iconName = self.emjIcons[indexPath.item];
+            [self.delegate customKeyboard:self didSelectItem:[UIImage imageNamed:iconName]];
         } else if (self.keyboardType == HLKeyboardStatusMore) {
-            HLKeyboardItemModel *model = self.componentIcons[indexPath.item];
-            iconName = model.icon;
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            picker.delegate = self;
+            switch (indexPath.item) {
+                case 1:
+                case 6:
+                case 9:
+                case 12:
+                    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                    break;
+                case 2:
+                case 4:
+                case 7:
+                case 10:
+                case 14:
+                    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                    break;
+                case 3:
+                case 5:
+                case 8:
+                case 11:
+                case 13:
+                case 15:
+                    picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+                    break;
+                case 16:
+                    [SVProgressHUD showWithStatus:@"此功能暂未开放"];
+                    break;
+            }
+            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:picker animated:YES completion:nil];
         }
-        
-        [self.delegate customKeyboard:self didSelectItem:iconName];
     }
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    [self.delegate customKeyboard:self didSelectItem:image];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)setKeyboardType:(HLKeyboardStatusType)keyboardType {
     _keyboardType = keyboardType;
     if (self.keyboardType == HLKeyboardStatusEmotion) {
-        self.pageVC.numberOfPages = self.emjIcons.count / 8;
+        self.pageVC.numberOfPages = self.emjIcons.count / (rowNo * colNo);
         self.keyboardFL.labelH = 0;
     } else if (self.keyboardType == HLKeyboardStatusMore) {
-        self.pageVC.numberOfPages = self.componentIcons.count / 8;
+        self.pageVC.numberOfPages = self.componentIcons.count / (rowNo * colNo);
         self.keyboardFL.labelH = 20;
     }
     [self.collectionView reloadData];

@@ -231,6 +231,9 @@
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chat_recive_nor" translatesAutoresizingMaskIntoConstraints="NO" id="BkH-Vz-fbo">
                                                     <rect key="contentStretch" x="0.5" y="0.5" width="0.0" height="0.0"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="300" id="bjb-cU-qqN"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="放假第三方库" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cw-Yr-ul9">
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -251,16 +254,19 @@
                                                 <constraint firstItem="2cw-Yr-ul9" firstAttribute="top" secondItem="BkH-Vz-fbo" secondAttribute="top" priority="750" constant="10" id="3AU-Ln-Cwe"/>
                                                 <constraint firstAttribute="trailing" secondItem="JUk-jV-awK" secondAttribute="trailing" id="5Ej-qd-Qgf"/>
                                                 <constraint firstItem="CXB-IR-q2v" firstAttribute="leading" secondItem="rYF-FT-zuR" secondAttribute="leading" constant="10" id="Ab4-xw-30l"/>
-                                                <constraint firstItem="2cw-Yr-ul9" firstAttribute="top" secondItem="CXB-IR-q2v" secondAttribute="top" id="DSy-P7-bpv"/>
+                                                <constraint firstItem="BkH-Vz-fbo" firstAttribute="top" secondItem="CXB-IR-q2v" secondAttribute="top" priority="750" constant="-8" id="KZF-Ag-WVR"/>
                                                 <constraint firstItem="2cw-Yr-ul9" firstAttribute="leading" secondItem="BkH-Vz-fbo" secondAttribute="leading" priority="750" constant="20" id="Knk-wq-AZ7"/>
+                                                <constraint firstItem="BkH-Vz-fbo" firstAttribute="top" secondItem="CXB-IR-q2v" secondAttribute="top" priority="250" id="LyW-mD-m4d"/>
                                                 <constraint firstItem="2cw-Yr-ul9" firstAttribute="trailing" secondItem="BkH-Vz-fbo" secondAttribute="trailing" priority="750" constant="-20" id="N6e-kU-S8q"/>
-                                                <constraint firstItem="BkH-Vz-fbo" firstAttribute="leading" secondItem="CXB-IR-q2v" secondAttribute="trailing" id="RRd-6E-PZy"/>
+                                                <constraint firstItem="BkH-Vz-fbo" firstAttribute="leading" secondItem="CXB-IR-q2v" secondAttribute="trailing" priority="750" id="RRd-6E-PZy"/>
                                                 <constraint firstItem="CXB-IR-q2v" firstAttribute="top" secondItem="JUk-jV-awK" secondAttribute="bottom" constant="5" id="UE5-Pj-Say"/>
                                                 <constraint firstItem="JUk-jV-awK" firstAttribute="leading" secondItem="rYF-FT-zuR" secondAttribute="leading" id="dQ4-tP-mj5"/>
                                                 <constraint firstItem="JUk-jV-awK" firstAttribute="top" secondItem="rYF-FT-zuR" secondAttribute="top" id="drr-ub-kMr"/>
                                                 <constraint firstItem="2cw-Yr-ul9" firstAttribute="bottom" secondItem="BkH-Vz-fbo" secondAttribute="bottom" priority="750" constant="-10" id="j77-ZW-VAi"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BkH-Vz-fbo" secondAttribute="trailing" constant="50" id="qqa-RX-byL"/>
+                                                <constraint firstItem="BkH-Vz-fbo" firstAttribute="leading" secondItem="CXB-IR-q2v" secondAttribute="trailing" priority="250" constant="10" id="qGJ-jj-bcf"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BkH-Vz-fbo" secondAttribute="trailing" priority="750" constant="50" id="qqa-RX-byL"/>
                                                 <constraint firstAttribute="bottom" secondItem="BkH-Vz-fbo" secondAttribute="bottom" constant="5" id="s3q-fa-zDN"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BkH-Vz-fbo" secondAttribute="trailing" priority="250" constant="100" id="yyP-Kk-bCh"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -268,6 +274,9 @@
                                             <outlet property="icon" destination="CXB-IR-q2v" id="EjN-Iu-FZy"/>
                                             <outlet property="msgLabel" destination="2cw-Yr-ul9" id="iVx-t0-vcI"/>
                                             <outlet property="msgTime" destination="JUk-jV-awK" id="Blu-Oz-qPg"/>
+                                            <outlet property="photoLeftConstraint" destination="qGJ-jj-bcf" id="68Z-6j-v4n"/>
+                                            <outlet property="photoRightConstraint" destination="yyP-Kk-bCh" id="PES-cK-Pux"/>
+                                            <outlet property="photoTopConstraint" destination="LyW-mD-m4d" id="cJp-eo-zV7"/>
                                             <outlet property="receiveImage" destination="BkH-Vz-fbo" id="sjz-XU-2jW"/>
                                             <outlet property="timeConstraintH" destination="CEQ-fO-e9E" id="zUL-Xp-Yik"/>
                                         </connections>
@@ -287,6 +296,9 @@
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chat_send_nor" translatesAutoresizingMaskIntoConstraints="NO" id="amc-wO-Jb7">
                                                     <rect key="contentStretch" x="0.5" y="0.5" width="0.0" height="0.0"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="300" id="kai-cW-B5L"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="大家来反馈的" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYx-e8-KFR">
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -305,18 +317,21 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="jG9-fi-M5x" firstAttribute="top" secondItem="qeP-Ak-MmF" secondAttribute="bottom" constant="5" id="9NV-3w-hTj"/>
-                                                <constraint firstItem="jG9-fi-M5x" firstAttribute="top" secondItem="aYx-e8-KFR" secondAttribute="top" id="C0b-yK-oc6"/>
+                                                <constraint firstItem="jG9-fi-M5x" firstAttribute="top" secondItem="amc-wO-Jb7" secondAttribute="top" priority="250" id="C3F-yc-Ac3"/>
                                                 <constraint firstAttribute="trailing" secondItem="jG9-fi-M5x" secondAttribute="trailing" constant="10" id="Gqq-rV-Tzd"/>
+                                                <constraint firstItem="jG9-fi-M5x" firstAttribute="leading" secondItem="amc-wO-Jb7" secondAttribute="trailing" priority="250" constant="10" id="HPt-RC-Gpx"/>
                                                 <constraint firstAttribute="bottom" secondItem="amc-wO-Jb7" secondAttribute="bottom" constant="5" id="HbN-RK-f3E"/>
                                                 <constraint firstItem="aYx-e8-KFR" firstAttribute="bottom" secondItem="amc-wO-Jb7" secondAttribute="bottom" priority="750" constant="-10" id="IS7-Rb-nS8"/>
                                                 <constraint firstItem="qeP-Ak-MmF" firstAttribute="leading" secondItem="bNg-P5-Kho" secondAttribute="leading" id="LYo-bx-4pF"/>
                                                 <constraint firstItem="aYx-e8-KFR" firstAttribute="trailing" secondItem="amc-wO-Jb7" secondAttribute="trailing" priority="750" constant="-20" id="PuE-YV-t3N"/>
                                                 <constraint firstItem="qeP-Ak-MmF" firstAttribute="top" secondItem="bNg-P5-Kho" secondAttribute="top" id="ZKC-IO-240"/>
                                                 <constraint firstAttribute="trailing" secondItem="qeP-Ak-MmF" secondAttribute="trailing" id="ZZi-Ia-rPF"/>
+                                                <constraint firstItem="amc-wO-Jb7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bNg-P5-Kho" secondAttribute="leading" priority="250" constant="100" id="f8W-Sk-Ym7"/>
                                                 <constraint firstItem="aYx-e8-KFR" firstAttribute="top" secondItem="amc-wO-Jb7" secondAttribute="top" priority="750" constant="10" id="kci-fH-iP7"/>
-                                                <constraint firstItem="jG9-fi-M5x" firstAttribute="leading" secondItem="amc-wO-Jb7" secondAttribute="trailing" id="mc9-9Y-ad1"/>
-                                                <constraint firstItem="amc-wO-Jb7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bNg-P5-Kho" secondAttribute="leading" constant="50" id="opn-4G-Tzv"/>
+                                                <constraint firstItem="jG9-fi-M5x" firstAttribute="leading" secondItem="amc-wO-Jb7" secondAttribute="trailing" priority="750" id="mc9-9Y-ad1"/>
+                                                <constraint firstItem="amc-wO-Jb7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bNg-P5-Kho" secondAttribute="leading" priority="750" constant="50" id="opn-4G-Tzv"/>
                                                 <constraint firstItem="aYx-e8-KFR" firstAttribute="leading" secondItem="amc-wO-Jb7" secondAttribute="leading" priority="750" constant="20" id="p5r-6D-jCM"/>
+                                                <constraint firstItem="jG9-fi-M5x" firstAttribute="top" secondItem="amc-wO-Jb7" secondAttribute="top" priority="750" constant="8" id="wjK-ta-cwo"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -324,6 +339,9 @@
                                             <outlet property="icon" destination="jG9-fi-M5x" id="Jjv-5j-hxa"/>
                                             <outlet property="msgLabel" destination="aYx-e8-KFR" id="1X1-rt-jW1"/>
                                             <outlet property="msgTime" destination="qeP-Ak-MmF" id="7En-Bz-RLJ"/>
+                                            <outlet property="photoLeftConstraint" destination="f8W-Sk-Ym7" id="Jwh-R8-jYb"/>
+                                            <outlet property="photoRightConstraint" destination="HPt-RC-Gpx" id="cuW-bY-FNQ"/>
+                                            <outlet property="photoTopConstraint" destination="C3F-yc-Ac3" id="ghw-Ko-0oe"/>
                                             <outlet property="sendImage" destination="amc-wO-Jb7" id="DRJ-sO-AOP"/>
                                             <outlet property="timeConstraintH" destination="PMU-v9-tur" id="hqX-jl-1P6"/>
                                         </connections>
