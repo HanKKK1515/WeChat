@@ -24,6 +24,10 @@
 		E454D4D71D9FD3BD00EA1B08 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E454D4D61D9FD3BD00EA1B08 /* main.m */; };
 		E454D4E21D9FD3BD00EA1B08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E454D4E11D9FD3BD00EA1B08 /* Assets.xcassets */; };
 		E454D4E51D9FD3BD00EA1B08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E454D4E31D9FD3BD00EA1B08 /* LaunchScreen.storyboard */; };
+		E459744B1DC05DB600AC0C9A /* HLKBCollectionFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E459744A1DC05DB600AC0C9A /* HLKBCollectionFlowLayout.m */; };
+		E459744E1DC0603700AC0C9A /* HLKBCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E459744D1DC0603700AC0C9A /* HLKBCollectionCell.m */; };
+		E45974501DC0609F00AC0C9A /* HLKBCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E459744F1DC0609F00AC0C9A /* HLKBCollectionCell.xib */; };
+		E45974531DC06BF000AC0C9A /* HLKeyboardItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E45974521DC06BF000AC0C9A /* HLKeyboardItemModel.m */; };
 		E4611E181DA3EFE30064AD6C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4611E171DA3EFE30064AD6C /* AppDelegate.m */; };
 		E4611E1B1DA3F05C0064AD6C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4611E1A1DA3F05C0064AD6C /* Main.storyboard */; };
 		E4611E2A1DA3F2170064AD6C /* HLLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4611E251DA3F2170064AD6C /* HLLoginController.m */; };
@@ -77,6 +81,13 @@
 		E454D4E11D9FD3BD00EA1B08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E454D4E41D9FD3BD00EA1B08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E454D4E61D9FD3BD00EA1B08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E45974491DC05DB600AC0C9A /* HLKBCollectionFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLKBCollectionFlowLayout.h; sourceTree = "<group>"; };
+		E459744A1DC05DB600AC0C9A /* HLKBCollectionFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLKBCollectionFlowLayout.m; sourceTree = "<group>"; };
+		E459744C1DC0603700AC0C9A /* HLKBCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLKBCollectionCell.h; sourceTree = "<group>"; };
+		E459744D1DC0603700AC0C9A /* HLKBCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLKBCollectionCell.m; sourceTree = "<group>"; };
+		E459744F1DC0609F00AC0C9A /* HLKBCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HLKBCollectionCell.xib; sourceTree = "<group>"; };
+		E45974511DC06BF000AC0C9A /* HLKeyboardItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLKeyboardItemModel.h; sourceTree = "<group>"; };
+		E45974521DC06BF000AC0C9A /* HLKeyboardItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLKeyboardItemModel.m; sourceTree = "<group>"; };
 		E4611E161DA3EFE30064AD6C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E4611E171DA3EFE30064AD6C /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		E4611E191DA3F0130064AD6C /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -298,6 +309,8 @@
 		E48E4E5B1DB32FE600C4A25F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E45974511DC06BF000AC0C9A /* HLKeyboardItemModel.h */,
+				E45974521DC06BF000AC0C9A /* HLKeyboardItemModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -314,6 +327,11 @@
 				E43E56471DBA30CA005551D0 /* HLCustomKeyboard.h */,
 				E43E56481DBA30CA005551D0 /* HLCustomKeyboard.m */,
 				E43E564A1DBA311F005551D0 /* HLCustomKeyboard.xib */,
+				E45974491DC05DB600AC0C9A /* HLKBCollectionFlowLayout.h */,
+				E459744A1DC05DB600AC0C9A /* HLKBCollectionFlowLayout.m */,
+				E459744C1DC0603700AC0C9A /* HLKBCollectionCell.h */,
+				E459744D1DC0603700AC0C9A /* HLKBCollectionCell.m */,
+				E459744F1DC0609F00AC0C9A /* HLKBCollectionCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -536,6 +554,7 @@
 				E4611E1B1DA3F05C0064AD6C /* Main.storyboard in Resources */,
 				E43E564B1DBA311F005551D0 /* HLCustomKeyboard.xib in Resources */,
 				E43E564D1DBA4E8E005551D0 /* keyboard.plist in Resources */,
+				E45974501DC0609F00AC0C9A /* HLKBCollectionCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -604,6 +623,7 @@
 				E48E4E711DB32FFB00C4A25F /* HLMeTableController.m in Sources */,
 				E48E4E731DB32FFB00C4A25F /* HLUserInfoUpdateController.m in Sources */,
 				E4611E2B1DA3F2170064AD6C /* HLOtherLoginController.m in Sources */,
+				E459744B1DC05DB600AC0C9A /* HLKBCollectionFlowLayout.m in Sources */,
 				E454D4D71D9FD3BD00EA1B08 /* main.m in Sources */,
 				E4B9D6AD1DA51A440012C87E /* HLUserInfo.m in Sources */,
 				E48CC2021DA7FDD90099119C /* UIButton+HL.m in Sources */,
@@ -615,6 +635,7 @@
 				E43E56431DB9C657005551D0 /* HLChatViewCell.m in Sources */,
 				E43798151DBC9A5B0048C319 /* UIInputView+HL.m in Sources */,
 				E43E56401DB9B570005551D0 /* HLReceiveViewCell.m in Sources */,
+				E459744E1DC0603700AC0C9A /* HLKBCollectionCell.m in Sources */,
 				E48CC2011DA7FDD90099119C /* NSString+md5.m in Sources */,
 				E48CC2051DA7FDD90099119C /* UIStoryboard+HL.m in Sources */,
 				E42430FA1DA7EA9000BFA493 /* HLXMPPTool.m in Sources */,
@@ -622,6 +643,7 @@
 				E48CC2041DA7FDD90099119C /* UIScreen+HL.m in Sources */,
 				E4611E2A1DA3F2170064AD6C /* HLLoginController.m in Sources */,
 				E43F5EF71DB78B3200DB6763 /* HLHttpTool.m in Sources */,
+				E45974531DC06BF000AC0C9A /* HLKeyboardItemModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

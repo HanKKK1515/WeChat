@@ -35,12 +35,15 @@
     if (user.photo) {
         icon.image = user.photo;
     } else {
-        NSData *photo = [[HLXMPPTool sharedHLXMPPTool].vCarAvatar photoDataForJID:user.jid];
-        if (photo) {
-            icon.image = [UIImage imageWithData:photo];
-        } else {
-            icon.image = [UIImage imageNamed:@"fts_default_headimage"];
-        }
+        __block NSData *photo = [[HLXMPPTool sharedHLXMPPTool].vCarAvatar photoDataForJID:user.jid];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            photo = [[HLXMPPTool sharedHLXMPPTool].vCarAvatar photoDataForJID:user.jid];
+            if (photo) {
+                icon.image = [UIImage imageWithData:photo];
+            } else {
+                icon.image = [UIImage imageNamed:@"fts_default_headimage"];
+            }
+        });
     }
     
     switch ([user.sectionNum integerValue]) {

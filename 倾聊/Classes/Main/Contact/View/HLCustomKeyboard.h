@@ -14,9 +14,18 @@ typedef NS_ENUM(NSUInteger, HLKeyboardStatusType) {
     HLKeyboardStatusMore, // 图片、相机、录音等更多键盘
 };
 
+@class HLCustomKeyboard;
+@protocol HLCustomKeyboardDelegate <NSObject>
+
+@optional
+- (void)customKeyboard:(HLCustomKeyboard *)customKeyboard didSelectItem:(NSString *)imageName;
+
+@end
+
 @interface HLCustomKeyboard : UIView
 
 @property (assign, nonatomic) HLKeyboardStatusType keyboardType;
+@property (weak, nonatomic) id<HLCustomKeyboardDelegate> delegate;
 
 + (instancetype)keyboard;
 

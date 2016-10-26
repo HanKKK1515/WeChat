@@ -12,23 +12,27 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="258"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="pDR-Au-984">
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fno-fJ-7bt">
-                        <size key="itemSize" width="50" height="50"/>
-                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    </collectionViewFlowLayout>
-                </collectionView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Arv-4f-M4Y"/>
+                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="LyU-ay-PGr">
+                    <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="currentPageIndicatorTintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                </pageControl>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="pDR-Au-984" firstAttribute="top" secondItem="i7u-Hq-gBg" secondAttribute="top" id="CNa-gG-uwB"/>
-                <constraint firstAttribute="trailing" secondItem="pDR-Au-984" secondAttribute="trailing" id="Jbn-F5-Dkn"/>
-                <constraint firstItem="pDR-Au-984" firstAttribute="leading" secondItem="i7u-Hq-gBg" secondAttribute="leading" id="LgT-NZ-3bl"/>
-                <constraint firstAttribute="bottom" secondItem="pDR-Au-984" secondAttribute="bottom" id="kVA-4Y-IDO"/>
+                <constraint firstAttribute="bottom" secondItem="Arv-4f-M4Y" secondAttribute="bottom" id="6g0-QK-yPx"/>
+                <constraint firstItem="LyU-ay-PGr" firstAttribute="leading" secondItem="i7u-Hq-gBg" secondAttribute="leading" id="Akj-6p-jd2"/>
+                <constraint firstItem="Arv-4f-M4Y" firstAttribute="leading" secondItem="i7u-Hq-gBg" secondAttribute="leading" id="Gdb-kQ-gQ4"/>
+                <constraint firstAttribute="bottom" secondItem="LyU-ay-PGr" secondAttribute="bottom" id="T8N-PW-eJy"/>
+                <constraint firstItem="Arv-4f-M4Y" firstAttribute="top" secondItem="i7u-Hq-gBg" secondAttribute="top" id="kwR-PE-Ilc"/>
+                <constraint firstAttribute="trailing" secondItem="LyU-ay-PGr" secondAttribute="trailing" id="nhy-RD-BAe"/>
+                <constraint firstAttribute="trailing" secondItem="Arv-4f-M4Y" secondAttribute="trailing" id="nz7-SH-azu"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="backgroundImage" destination="Arv-4f-M4Y" id="r5l-UU-muz"/>
+                <outlet property="pageVC" destination="LyU-ay-PGr" id="Fs9-Lz-QMl"/>
+            </connections>
             <point key="canvasLocation" x="-4.5" y="-414"/>
         </view>
     </objects>

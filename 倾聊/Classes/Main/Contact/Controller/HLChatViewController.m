@@ -11,7 +11,7 @@
 #import "HLCustomKeyboard.h"
 
 
-@interface HLChatViewController () <UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate, UITextViewDelegate>
+@interface HLChatViewController () <UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate, UITextViewDelegate, HLCustomKeyboardDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIButton *voiceBtn;
@@ -41,23 +41,22 @@
     
     self.bottom.backgroundColor = HLColor(61, 187, 3, 1);
     
-    [self setupKeyboardFrameWithH:0];
+    [self setupKeyboardFrame];
     
     [UIInputView getKeyboardDefaultSize];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 
-- (void)setupKeyboardFrameWithH:(CGFloat)height {
+- (void)setupKeyboardFrame {
     HLUserInfo *userInfo = [HLUserInfo sharedHLUserInfo];
     if (userInfo.keyboardHeight <= 0) {
         CGFloat keyboardH = [UIInputView getKeyboardDefaultSize].height;
         userInfo.keyboardHeight = keyboardH;
+        [userInfo saveUserInfoData];
         self.keyboardFrame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, keyboardH);
+    } else {
+        self.keyboardFrame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, userInfo.keyboardHeight);
     }
-    if (height > 0) {
-        userInfo.keyboardHeight = height;
-    }
-    [userInfo saveUserInfoData];
 }
 
 - (void)keyboardWillChange:(NSNotification *)notif {
@@ -75,7 +74,9 @@
         [self scrollToBottom];
     }];
     
-    [self setupKeyboardFrameWithH:self.keyboardFrame.size.height];
+    HLUserInfo *user = [HLUserInfo sharedHLUserInfo];
+    user.keyboardHeight = self.keyboardFrame.size.height;
+    [user saveUserInfoData];
 }
 
 // 还原到系统键盘
@@ -245,6 +246,13 @@
     [self.view endEditing:YES];
 }
 
+
+#pragma mark - HLCustomKeyboardDelegate
+
+- (void)customKeyboard:(HLCustomKeyboard *)customKeyboard didSelectItem:(NSString *)imageName {
+    NSLog(@"%@", imageName);
+}
+
 /**
  *  懒加载
  */
@@ -275,6 +283,7 @@
 - (HLCustomKeyboard *)customKeyboard {
     if (!_customKeyboard) {
         _customKeyboard = [HLCustomKeyboard keyboard];
+        _customKeyboard.delegate = self;
         _customKeyboard.keyboardType = HLKeyboardStatusSystem;
     }
     return _customKeyboard;
